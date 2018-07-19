@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<!--
+
+river all-in-one page by nouvae 
+
+- scroll down to /* customization */ before </style> to customize colors
+- editing the text is below <body> in the code
+
+-->
+<head>
+<title>{Title}</title>
+<link rel="shortcut icon" href="{Favicon}">
+<meta name=viewport content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=yes">
+<link rel="stylesheet" href="http://static.tumblr.com/i5s2zks/6kOohwlux/pe-icon-7-stroke.css">
+
+<link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+
+<script>
+$(document).ready(function() {
+    
+    $("#container").delay(350).fadeTo(650, 1);
+    
+    var showing = $("#about");
+    var current = $("#aboutlink");
+    var arr = [$("#about"), $("#navigation"), $("#blogroll")];
+    
+    $("header nav a").bind("click", animatePanel);
+    
+    function animatePanel() {
+        $("header nav a").unbind("click", animatePanel);
+        current.removeClass("current");
+        $(this).addClass("current");
+        current = $(this);
+        var currentHeight = showing.outerHeight();
+        $("#elastic").css({ height : currentHeight });
+        var i = $(this).index("header nav a");
+        var nextShowing = arr[i];
+        var height = nextShowing.outerHeight();
+        
+        showing.fadeOut(350, function() {
+            showing.removeClass("showing"); 
+             $("#elastic").animate({ height : height }, 500, function() {
+                nextShowing.fadeIn(350, function() {
+                    nextShowing.addClass("showing");
+                    showing = nextShowing;
+                    $("header nav a").bind("click", animatePanel);
+                }); 
+             });
+        }); 
+    }
+});
+
+</script>
+
+<style>
+
+a, .dot {
+    -webkit-transition:0.6s;
+    -moz-transition:0.6s;
+    -o-transition:0.6s;
+    transition:0.6s;
+}
+
+.showing {
+    display:block!important;
+}
+
+body {
+    background:#e9e9e9;
+    font-family:nunito, helvetica;
+    font-size:13px; /* font size */
+    letter-spacing:0.07em;
+    line-height:150%;
+    color:#000000;
+    overflow-wrap:break-word;
+    word-wrap:break-all; 
+    word-break: break-word;
+}
+
+#container {
+    opacity:0;
+    border-radius:0.45em;
+    border:1px solid #e5e5e5;
+    width:65vw;
+    max-width:90vw;
+    height:75vh;
+    overflow-x:hidden;
+    overflow-y:scroll;
+    position:fixed;
+    background:#f0f0f0;
+    top:50%;
+    left:50%;
+    margin-top:-37.5vh;
+    margin-left:-32.5vw;
+}
+
+a {
+    text-decoration:none;
+    color:#a5a5a5;
+}
+
+a:hover, .current {
+    color:#000000;
+}
+
+p {margin:0.5em 0em;}
+
+p:first-child {margin-top:0;}
+
+p:last-child {margin-bottom:0;}
+
+.title a, .title a:hover {color:#000000;}
+
+.title {
+    margin-bottom:1em;
+    font-weight:bold;
+    font-size:1.6em;
+    letter-spacing:0.1em;
+}
+
+header {
+    position:fixed;
+    z-index:99;
+    padding:2em;
+    width:calc(65vw - 4em);
+    border-bottom:1px solid #e5e5e5;
+}
+
+header nav {
+    text-align:center;
+    margin-left:-1em;
+}
+
+header nav a {
+    cursor:pointer;
+    margin-right:2em;
+    opacity:0.5;
+}
+
+header nav a:last-child {
+    margin-right:0;
+}
+
+.dot {
+    width:0.6em;
+    height:0.6em;
+    margin-right:1em;
+    display:inline-block;
+    border-radius:100%;
+    background:#acc4b5;
+}
+
+header nav a:hover .dot, .current .dot, header nav a:hover, .current {
+    opacity:1;
+}
+
+#block-wrap {
+    margin-top:calc(5em - 2px);
+}
+
+#elastic {
+    position:relative;
+    float:right;
+    width:calc(100% - 23vw);
+}
+
+#blogroll, #about, #navigation {
+    padding:3.5em 4em;
+    display:none;
+}
+
+#profile {
+    display:block!important;
+    height:calc(75vh - (5em - 2px));
+    position:fixed;
+    margin-top:0em;
+    width:23vw;
+}
+
+#profile .title {
+    font-size:1.1em;
+}
+
+#profile nav a {
+    display:block;
+    margin:1em 0em;
+}
+
+#profile .block-info {
+    position:relative;
+    overflow:hidden;
+    height:calc(24vh - 4em);
+    padding:2em 3.5em;
+}
+
+#profile b {
+    font-weight:bold;
+    color:#000000;
+    margin-right:1em;
+}
+
+#sidedecor {
+    width:100%;
+    height:37vh;
+    display:block;
+}
+
+#navigation a {
+    display:inline-block;
+    margin-right:1em;
+    margin-bottom:0.3em;
+}
+
+#navigation .category {
+    font-weight:bold;
+    margin:1.5em 0em 0.5em 0em;
+    opacity:0.7;
+}
+
+#navigation .category:first-child {
+    margin-top:0;
+}
+
+#blogroll a {
+    color:#000000;
+}
+
+#blogroll img {
+    width:3em;
+    border-radius:100%;
+    padding:2px;
+    vertical-align:middle;
+    border:1px solid #e5e5e5;
+    display:inline-block;
+}
+
+.label {
+    display:inline-block;
+    width:calc(50% - 2em);
+    margin-right:2em;
+    margin-bottom:2em;
+}
+
+.username {
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    max-width:calc(100% - 8em);
+    display:inline-block;
+    vertical-align:middle;
+    margin-left:1em;
+    font-size:0.9em;
+}
+
+/* creds */
+
+#creds {
+    border:0;
+    bottom:20px;
+    right:29px;
+    font-family:sans-serif;
+    font-size:10px;
+    position:fixed;
+    color:#000000;
+}
+
+
+/* queries */ 
+
+@media only screen and (max-width:965px) {
+    #container {
+        width:85vw!important;
+        overflow:auto!important;
+        margin-left:-42.5vw!important;
+    }
+    
+    header {
+        width:calc(85vw - 4em)!important;
+    }
+    
+    #about, #blogroll, #navigation {
+        width:calc(100% - 8em);
+        min-height:30vh;
+        height:auto;
+        position:relative!important;
+    }
+    
+    #elastic {
+        width:100%!important;
+        float:none!important;
+        height:auto;
+    }
+    
+    #profile {position:relative!important;height:auto!important;display:block!important;}
+    #sidedecor {height:35vh!important;width:50%!important;float:left;}
+    
+    #profile .block-info {
+        height:calc(35vh - 4em)!important;
+        width:calc(50% - 7em)!important;
+        float:right;
+        background:#ffffff;
+        margin-right:0em!important;
+    }
+    
+    #profile {width:100%!important;}
+}
+
+/* customization */
+
+/* the background */ 
+body {
+    background:#e9e9e9;
+}
+
+/* 1. background of the main text
+   2. rounded corners. if not, set to 0 */
+#container {
+    background:#f0f0f0;
+    border-radius:0.45em;
+}
+
+/* background of the header and profile */ 
+#profile, header, #blogroll img {
+    background:#ffffff;
+}
+
+/* accent color */
+.dot, #sidedecor {
+    background:#acc4b5;
+}
+
+/* border color */
+#blogroll img, #container, header {
+    border-color:#e5e5e5;
+}
+
+/* text color */
+body, header nav a, #profile b, #blogroll a, #creds, a:hover, .title, .title a, .title a:hover {
+    color:#000000;
+}
+
+/* link color */
+a {
+    color:#a5a5a5;
+}
+
+/* profile image, if any. 
+   to have a profile image, remove the "*" and the "/" 
+   around background:url("LINK") and replace LINK with image link. 
+ */
+   
+#sidedecor {
+    /* background:url("LINK"); */
+    background-size:cover;
+}
+
+</style>
+
+</head>
+<body>
+<div id="container">
+<header>
+
+<nav>
+<a id="aboutlink" class="current"><div class="dot"></div>about</a>
+<a id="navlink"><div class="dot"></div>navigation</a>
+<a id="blogrolllink"><div class="dot"></div>blogroll</a>
+
+</nav>
+</header>
+
+
+<div id="block-wrap">
+
+<div class="block">
+
+<div id="elastic">
+
+<div class="block-info showing" id="about">
+<div class="title">about</div>
+
+<!-- edit below. to create paragraphs, write <p> </p> around chosen text -->
+
+</div>
+
+
+<div class="block-info" id="navigation">
+<div class="title">navigation</div>
+
+<!-- 
+
+replace "Category" with your category title
+
+link of tag is placed in between the quotes of href="" and replace "tag" to name the link
+
+delete "<a href="">tag</a>" to remove link completely
+
+or add "<a href="">tag</a>" and edit accordingly to add another link
+
+-->
+
+<a href="">tag</a>
+<a href="">tag</a>
+<a href="">tag</a>
+
+<div class="category">Category</div>
+<a href="">tag</a>
+<a href="">tag</a>
+<a href="">tag</a>
+
+<div class="category">Category</div>
+<a href="">tag</a>
+<a href="">tag</a>
+<a href="">tag</a>
+<a href="">tag</a>
+
+<div class="category">Category</div>
+<a href="">tag</a>
+<a href="">tag</a>
+<a href="">tag</a>
+
+</div>
+
+<div class="block-info" id="blogroll">
+<div class="title">blogroll</div>
+{block:Following}
+{block:Followed}
+<a href="{FollowedURL}">
+<div class="label">
+<img src="{FollowedPortraitURL-128}" /> 
+<div class="username">
+{FollowedName}
+</div>
+</div>
+</a>
+{/block:Followed}
+{/block:Following}
+</div>
+
+</div>
+
+</div>
+
+<div class="block" id="profile">
+<div id="sidedecor"></div>
+<div class="block-info">
+
+<!-- if you want to make a custom profile title, replace "{Title}" -->
+
+<div class="title"><a href="/">{Title}</a></div>
+
+<nav id="main">
+<a href="/"><b>01</b> index</a>
+<a href="/ask"><b>02</b> ask</a>
+<a href="/archive"><b>03</b> history</a>
+</nav>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<a id="creds" href="http://nouvae.tumblr.com" title="theme by nouvae">#</a>
+
+</body>
+</html>
