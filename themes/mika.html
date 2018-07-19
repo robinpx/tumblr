@@ -954,11 +954,10 @@ function audioPlayers() {
        $(this).attr({ src: $(this).attr('src').split('&')[0] + '&amp;liking=false&amp;sharing=false&amp;auto_play=false&amp;show_comments=false&amp;continuous_play=false&amp;buying=false&amp;show_playcount=false&amp;show_artwork=false&amp;origin=tumblr&amp;color=' + color.split('#')[1], height: '100%', width: '100%' });
    });
    
-    var color = $(".player-wrap").css("background");
-    var color2 = $("body").css("color");
+    var color = $("body").css("color");
       $('iframe.tumblr_audio_player').load(function() {
          $('iframe.tumblr_audio_player').contents().find("head")
-            .append($("<style type='text/css'> .audio-player, .progress {background:" + color + "!important;} .play-pause{color:" + color2 + "!important;}</style>"));
+            .append($("<style type='text/css'> .audio-player, .progress {background:transparent!important;} .play-pause{color:" + color + "!important;}</style>"));
       });
 };
 
