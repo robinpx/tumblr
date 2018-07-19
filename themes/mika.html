@@ -152,6 +152,9 @@ body {
     margin:0;
     line-height:150%;
     letter-spacing:0.1em;
+    overflow-wrap:break-word;
+    word-wrap:break-all; 
+    word-break: break-word;
 }
 
 pre {
@@ -195,6 +198,7 @@ p:last-of-type {
 
 h1, h2, h3, h4 {
     color:{color:Text};
+    line-height:150%;
     margin:0;
     padding:0;
 }
@@ -283,7 +287,10 @@ nav a:last-child {margin-right:0;}
 /* homogenous */
 
 #permalink, header, #pagination {
+    margin:3em;
+    {block:ifCenterAlign}
     margin:3em auto;
+    {/block:ifCenterAlign}
     width:650px;
 }
 
@@ -630,12 +637,6 @@ ol.notes li.note {
     margin:0.5em 0;
 }
 
-.notes .answer_content {
-    word-wrap:nowrap;
-    text-overflow:hidden;
-    max-width:80%;
-}
-
 .notes i {
     display:inline-block;
     margin-right:0.5em;
@@ -931,9 +932,7 @@ $(document).ready(function(){
        photo: '.pxu-photo'
    });
 });
-</script>
 
-<script>
 $(document).ready(function() {
     $(".post").unnest({ 
      yourCaption: ".caption", 
@@ -945,9 +944,7 @@ $(document).ready(function() {
      usernameColon: false
     });
 });
-</script>
 
-<script>
 function audioPlayers() {
     var color = '{color:Text}'; // color of play button (hex) 
    $('.soundcloud_audio_player').each(function(){
