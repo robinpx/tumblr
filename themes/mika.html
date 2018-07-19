@@ -282,6 +282,11 @@ nav a:last-child {margin-right:0;}
 
 /* homogenous */
 
+#permalink, header, #pagination {
+    margin:3em auto;
+    width:650px;
+}
+
 #posts, .post, #creds {opacity:0;}
 
 .quote, .title, #blogt {
@@ -312,7 +317,7 @@ nav a:last-child {margin-right:0;}
     {/block:PermalinkPage}
 }
 
-.post, header, #permalink, #pagination {
+.post {
     margin:3em;
 }
 
@@ -394,7 +399,7 @@ nav a:last-child {margin-right:0;}
     border-radius:100%;
     background:rgba({RGBcolor:Text}, 0.7);
     color:rgba({RGBcolor:Posts}, 0.7);
-    font-family:nunito;
+    font-family:nunito, sans-serif;
 }
 
 {block:IndexPage}
@@ -623,6 +628,12 @@ ol.notes li.note {
     display:block;
     padding:0;
     margin:0.5em 0;
+}
+
+.notes .answer_content {
+    word-wrap:nowrap;
+    text-overflow:hidden;
+    max-width:80%;
 }
 
 .notes i {
