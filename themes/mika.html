@@ -468,7 +468,9 @@ nav a:last-child {margin-right:0;}
 .soundcloud_audio_player, .spotify_audio_player, .bandcamp_audio_player {
     position:relative!important;
     width:100%!important;
+    min-width:{select:Post Height}!important;
     min-height:100%!important;
+    max-height:100%!important;
 }
 
 .soundcloud_audio_player {
@@ -478,6 +480,17 @@ nav a:last-child {margin-right:0;}
 .player-wrap {
     background:{color:Background};
     padding:1em 1em 0.5em 1em;
+}
+
+.embed-wrap iframe {
+    position:absolute;
+    top:-1.5em;
+    left:-1.5em;
+}
+
+.embed-wrap {
+    position:relative;
+    margin-bottom:-1.5em;
 }
 
 .player {display:inline-block;}
@@ -848,13 +861,18 @@ a.more_notes_link {
 
 {block:Audio}
 <div class="audio">
-<div class="player-wrap">
 {block:AudioPlayer}
+<div class="player-wrap">
 <div class="player">
 {AudioPlayer}
 </div>
-{/block:AudioPlayer}
 </div>
+{/block:AudioPlayer}
+{block:AudioEmbed}
+<div class="embed-wrap">
+{AudioEmbed}
+</div>
+{/block:AudioEmbed}
 <div class="audio-wrap">
 <i class="pe-7s-music"></i>
 {block:TrackName}<div class="track">{TrackName}</div>{/block:TrackName}
@@ -971,10 +989,9 @@ function audioPlayers() {
        $(this).attr({ src: $(this).attr('src').split('&')[0] + '&amp;liking=false&amp;sharing=false&amp;auto_play=false&amp;show_comments=false&amp;continuous_play=false&amp;buying=false&amp;show_playcount=false&amp;show_artwork=false&amp;origin=tumblr&amp;color=' + color.split('#')[1], height: '100%', width: '100%' });
    });
    
-    var color = $("body").css("color");
       $('iframe.tumblr_audio_player').load(function() {
          $('iframe.tumblr_audio_player').contents().find("head")
-            .append($("<style type='text/css'> .audio-player, .progress {background:transparent!important;} .play-pause{color:" + color + "!important;}</style>"));
+            .append($("<style type='text/css'> .audio-player, .progress {background:transparent!important;} .play-pause{color:#000000!important;}</style>"));
       });
 };
 
