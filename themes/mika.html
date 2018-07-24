@@ -7,7 +7,7 @@ new photoset resizing by bychloethemes
 unnest blockquote by magnusthemes and neothm
 video resizing and lightboxes by shythemes 
 audio player color by roxiestheme
-minimal soundcloud player by shythemes
+minimal soundcloud player by shythemes edited by me
 
 mika theme by nouvae
 
@@ -1151,7 +1151,7 @@ $(document).ready(function(){
     },
     function(arrayOfNewElems) {
         var $newElems = $(arrayOfNewElems);
-        $newElems.imagesLoaded(function() {
+        $newElems.imagesLoaded().always(function(){ 
             fixImages();
             $newElems.animate({ opacity : 1 });
         });
