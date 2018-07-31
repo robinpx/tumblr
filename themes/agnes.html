@@ -33,6 +33,9 @@ agnès theme by nouvae
 <meta name="select:Font Family" content="franklin gothic"/>
 <meta name="select:Font Family" content="consolas" />
 <meta name="select:Font Family" content="courier" />
+<meta name="select:Post Position" content="top" />
+<meta name="select:Post Position" content="middle" />
+<meta name="select:Post Position" content="bottom" />
 <meta name="select:Link Decoration" content="underline"/>
 <meta name="select:Link Decoration" content="none"/>
 <meta name="text:Max Post Width" content="600px"/>
@@ -118,8 +121,6 @@ function resizeIFramesInCap() {
 };
 
 function randomize() {
-{block:ifNotSameSizedPosts}
-{block:IndexPage}
     var max = "{text:Max Post Width}";
     if (max !== undefined) {
         max = max.substring(0, max.length-2);
@@ -130,24 +131,25 @@ function randomize() {
     }
     var sizes = [];
     for (var i=0; i < 5;i++) {
-        sizes[i] = max - (i * 65);
+        sizes[i] = max - (i * 50);
         console.log(sizes[i]);
     }
     $(".post").each(function() {
+        {block:ifNotSameSizedPosts}
+        {block:IndexPage}
         if (!$(this).hasClass("distort")) {
         $(this).css({ width : sizes[Math.floor(Math.random() * 5)] + "px" });
         $(this).addClass("distort");
         }
+        {/block:IndexPage}
+        {/block:ifNotSameSizedPosts}
+        $(this).fadeTo(600, 1);
     });
-{/block:IndexPage}
-{/block:ifNotSameSizedPosts}
-    $(".post").fadeTo(600, 1);
 };
 
 $(document).ready(trigger);
 $(document).ready(toggle);
 $(document).ready(randomize);
-$(document).ready(resizeIFramesInCap);
 </script>
 
 <style type="text/css">
@@ -366,16 +368,17 @@ header, #pagination {font-size:1.1em;}
     text-align:left;
     opacity:0;
     max-width:calc(100% - 195px);
-    min-width:250px;
+    min-width:350px;
     width:{text:Max Post Width};
     margin:65px;
     display:inline-block;
-    vertical-align:middle;
+    vertical-align:{select:Post Position};
     {block:ifSingleColumnPosts}
     display:block;
     {block:ifCenterAlign}
-    margin:65px auto;
+    margin:97px auto;
     {/block:ifCenterAlign}
+    margin-bottom:85px;
     {/block:ifSingleColumnPosts}
     {block:PermalinkPage}
     {block:ifCenterAlign}
@@ -386,7 +389,7 @@ header, #pagination {font-size:1.1em;}
     {/block:PermalinkPage}
 }
 
-.post, .text, .quote, .ask-wrap {min-width:250px!important;}
+.post, .text, .quote, .ask-wrap {min-width:350px!important;}
 
 .post img {
 	border:1px solid rgba({RGBcolor:Text}, 0.08);
@@ -401,11 +404,13 @@ header, #pagination {font-size:1.1em;}
 .photo img {cursor:pointer;}
 .photoset {overflow:hidden;position:relative;}
 
+{block:PermalinkPage}
 {block:ifCenterAlign}
 .photoset img, .photo img {
     margin:auto;
 }
 {/block:ifCenterAlign}
+{/block:PermalinkPage}
 
 /* text */
 
@@ -597,6 +602,8 @@ a.more_notes_link {
 
 </style>
 
+
+<script src ="//static.tumblr.com/fwgzvyf/Oj1o08f6h/shythemes.vr.js"></script>
 
 </head>
 <body>
@@ -858,9 +865,6 @@ $(document).ready(function(){
             bufferPx: 800
     },
     function(arrayOfNewElems) {
-        randomize();
-        resizeIFramesInCap();
-        resizeVideos();
         audioPlayers();
         var $newElems = $(arrayOfNewElems);
         $newElems.find('.photo-slideshow').pxuPhotoset({
@@ -881,6 +885,9 @@ $(document).ready(function(){
             tumblrAvatarClass: ".tumblr_avatar",
             usernameColon: false
         });
+        randomize();
+        resizeVideos();
+        resizeIFramesInCap();
     });
 });
 </script>
