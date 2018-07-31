@@ -266,13 +266,23 @@ h4 {font-size:1.3em;}
 small {font-size:0.9em;}
 big {font-size:1.1em;}
 
-blockquote {
-    margin:0em 0em 0.5em 0em;
-    padding-bottom:1em;
+.tumblr_parent, blockquote {
+    margin:0;
+    padding:0;
     margin:0.5em 0em;
 }
 
-blockquote:last-child {margin-bottom:0;padding:0;border:0;}
+blockquote {
+   border-left:2px solid {color:Text}; 
+   padding-left:1em;
+}
+
+.tumblr_parent {
+    border:0;
+    padding:0;
+}
+
+.tumblr_parent:last-child {margin-bottom:0;padding:0;border:0;}
 
 a.tumblr_blog {
     font-weight:bold;
@@ -542,6 +552,7 @@ header, #pagination {font-size:1.1em;}
 ol.notes {
     padding:0px;
     margin:0px;
+    display:none;
 }
 
 ol.notes li.note img.avatar {display:none!important;}
