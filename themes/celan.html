@@ -180,13 +180,13 @@ $(document).ready(avatar);
 
 @media (max-width:815px) {
   .shortened {
-     height:100%!important;
-     overflow:auto!important;
+       height:100%!important;
+       overflow:auto!important;
   }
- 
+   
   .shortened:after {
-     background:none!important;
-     position:relative!important; 
+      background:none!important;
+      position:relative!important;
   }
     
   .custom_read_more {
@@ -1064,6 +1064,10 @@ a:hover, .permalink:last-child a:hover, .tags a:hover {
 .post, #permalink {
     background:#ffffff;
     color:#000000;
+}
+
+.shortened:after {
+    background:linear-gradient(rgba(256,256,256, 0) 150px, #ffffff);
 }
 
 .controls a:hover, a.tumblr_blog, .date, .tags a, .permalink:first-child a, .controls a, a.more_notes_link {
