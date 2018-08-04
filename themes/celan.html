@@ -83,20 +83,6 @@ celan theme by nouvae
 
 <script>
 
-function load() {
-    $("#container").fadeTo(400, 1);
-    {block:IndexPage}fixNotes();{/block:IndexPage}
-    {block:ifNotSingleColumnPosts}
-    {block:IndexPage}addFadeOut();{/block:IndexPage}
-    {/block:ifNotSingleColumnPosts}
-    {block:ifInfiniteScroll}
-    {block:PermalinkPage}sortTags();{/block:PermalinkPage}
-    {/block:ifInfiniteScroll}
-    {block:ifNotInfiniteScroll}
-    sortTags();
-    {/block:ifNotInfiniteScroll}
-}
-
 function sortTags() {
     {block:ifExploreTags}
     var tags = $(".navtags").html();
@@ -165,6 +151,20 @@ function avatar() {
 <\/svg>');
         ava.addClass("addedAv");
     });
+}
+
+function load() {
+    $("#container").fadeTo(400, 1);
+    {block:IndexPage}fixNotes();{/block:IndexPage}
+    {block:ifNotSingleColumnPosts}
+    {block:IndexPage}addFadeOut();{/block:IndexPage}
+    {/block:ifNotSingleColumnPosts}
+    {block:ifInfiniteScroll}
+    {block:PermalinkPage}sortTags();{/block:PermalinkPage}
+    {/block:ifInfiniteScroll}
+    {block:ifNotInfiniteScroll}
+    sortTags();
+    {/block:ifNotInfiniteScroll}
 }
 
 $(document).ready(load); // variable instead of method for photosets
@@ -1029,7 +1029,7 @@ blockquote, blockquote blockquote {
     border-color:#000000;
 }
 
-a, nav a, .permalink:last-child a, .pag-block a {
+a, nav a, .askname span, .askname a, .permalink:last-child a, .pag-block a {
     color:{AccentColor};
 }
 
