@@ -1,0 +1,987 @@
+<!DOCTYPE html>
+<!--
+
+icons by pixeden
+photosets by pixel union
+new photoset resizing by bychloethemes
+unnest blockquote by magnusthemes and neothm
+video resizing and lightboxes by shythemes 
+audio player color by roxiestheme
+minimal soundcloud player by shythemes edited by me
+
+vito theme by nouvae
+
+-->
+
+<head>
+<title>{Title}{block:PostSummary} : {PostSummary}{/block:PostSummary}</title>
+<link rel="shortcut icon" href="{Favicon}">
+<meta name=viewport content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=yes">
+<link rel="alternate" type="application/rss+xml" href="{RSS}">
+{block:Description}<meta name="description" content="{MetaDescription}" />{/block:Description}
+
+<!-- defaults -->
+
+<meta name="image:Sidebar" content="" />
+
+<meta name="color:Background" content="#ffffff"/>
+<meta name="color:Text" content="#444444"/>
+<meta name="color:Link" content="#7e7e7e"/>
+<meta name="color:Link Hover" content="#b8b8b8"/>
+<meta name="color:Scrollbar" content="#000000"/>
+<meta name="color:Accent" content="#000000" />
+<meta name="color:Caption" content="#f5f5f5" />
+<meta name="select:Font Family" content="droid serif"/>
+<meta name="select:Font Family" content="inconsolata"/>
+<meta name="select:Font Family" content="tajawal" />
+<meta name="select:Font Family" content="karla"/>
+<meta name="select:Font Family" content="serif"/>
+<meta name="select:Font Family" content="courier"/>
+<meta name="select:Font Family" content="helvetica" />
+<meta name="text:Post Width" content="450px" />
+<meta name="text:Font Size" content="12px"/>
+<meta name="text:Link 1 URL" content=""/>
+<meta name="text:Link 1" content=""/>
+<meta name="text:Link 2 URL" content=""/>
+<meta name="text:Link 2" content=""/>
+<meta name="text:Link 3 URL" content=""/>
+<meta name="text:Link 3" content=""/>
+
+<meta name="if:Show Tumblr Avatar" content=""/>
+<meta name="if:Full Photoset" content=""/>
+<meta name="if:Hide Captions" content=""/>
+<meta name="if:Hide Tags" content=""/>
+<meta name="if:Rounded" content=""/>
+<meta name="if:Scrollbar" content=""/>
+<meta name="if:Infinite Scroll" content=""/>
+
+<meta name="text:Home Title" content="index"/>
+<meta name="text:Ask Title" content="ask"/>
+<meta name="text:Archive Title" content="history"/>
+
+<!-- fonts & icons-->
+
+<link href="https://fonts.googleapis.com/css?family=Tajawal|Karla|Inconsolata|Droid+Serif" rel="stylesheet">
+<link rel="stylesheet" href="http://static.tumblr.com/i5s2zks/6kOohwlux/pe-icon-7-stroke.css">
+
+<!-- jquery -->
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+
+<script>
+
+var load = function(){
+    $("#posts").delay(700).fadeTo(600, 1);
+    $("#creds").delay(1000).fadeTo(600, 1);
+};
+
+var trigger = function() {
+    var triggerScroll = 500;
+    backTop = function() {
+        var scroll = $(window).scrollTop();
+        if (scroll > triggerScroll) {
+            $("#scroll-top").fadeIn();
+        }
+        else {
+            $("#scroll-top").fadeOut();
+        }
+    }; 
+    backTop();
+    $(window).on("scroll", function () {
+        backTop();
+    });
+    $("#scroll-top").click(function() {
+        $("html, body").animate({ scrollTop: 0 }, 550);
+        return false;
+    });
+};
+
+var toggle = function() {
+    $(".postnotes .title").click(function() {
+        $("ol.notes").fadeToggle();
+    });
+};
+
+var avatar = function() {
+    {block:ifNotShowTumblrAvatar}
+    $(".post").each(function() {
+        var ava = $(this).find(".caption:not(.addedAv)");
+        ava.find("a.tumblr_blog").before("<i class='pe-7s-look'></i>");
+        ava.addClass("addedAv");
+        
+    });
+    {/block:ifNotShowTumblrAvatar}
+}
+
+$(document).ready(load); // variable instead of method for photosets
+$(document).ready(trigger);
+$(document).ready(toggle);
+$(document).ready(avatar);
+
+</script>
+
+<style type="text/css">
+
+/* media queries */
+
+@media only screen and (max-width:1000px) {
+    header {display:block!important;}
+    aside {display:none!important;}
+    
+    nav {
+        column-count:1!important;
+        column-width:100%!important;
+    }
+    nav a {
+        margin-right:1em!important;
+        margin-bottom:0em!important;
+        display:inline-block!important;
+    }
+    
+    #posts {
+        margin:0px auto!important;
+        max-width:calc(100% - 90px)!important;
+    }
+}
+
+@media only screen and (max-width:765px) {
+    #container {
+        margin:0px auto;!important;
+        padding:0px 0.5em!important;
+        width:calc(100% - 1em)!important;
+    }
+    
+    .post {
+        display:block!important;
+        width:100%!important;
+        margin:0px!important;
+        margin-bottom:125px!important;
+    }
+}
+
+/* scrollbar */
+
+{block:ifScrollbar}
+::-webkit-scrollbar {
+    height:3px;
+    width:8px;
+    background:{color:Background};
+}
+
+::-webkit-scrollbar-thumb {
+    border:2px solid {color:Background};
+    background:{color:Scrollbar};
+}
+
+::-webkit-scrollbar-track {
+    background:{color:Background};
+}
+{/block:ifScrollbar}
+
+/* lightbox */
+
+.tmblr-lightbox, #tumblr_lightbox {
+    z-index:999999999999!important;
+    background-color:{color:Background}!important;
+}
+
+.vignette, #vignette {
+    opacity:0;
+}
+
+#tumblr_lightbox img, .lightbox-image {
+    box-shadow:none!important;
+    {block:ifNotRounded}
+    border-radius:0!important;
+    {/block:ifNotRounded}
+}
+
+#tumblr_lightbox_caption, .lightbox-caption {
+    font-family:{select:Font Family};
+    font-weight:none;
+    color:{color:Text}!important;
+}
+
+
+/* structure */
+
+body {
+    background:{color:Background};
+    color:{color:Text};
+    font-family:{select:Font Family}, serif;
+    font-size:{text:Font Size};
+    font-weight:normal;
+    margin:0;
+    line-height:150%;
+    letter-spacing:0.05em;
+}
+
+pre {
+    white-space:pre-wrap;      
+    white-space:-moz-pre-wrap;  
+    white-space:-pre-wrap;      
+    white-space:-o-pre-wrap;
+    word-wrap:break-word; 
+}
+
+a {
+    text-decoration:none; 
+    color:{color:Link};
+}
+
+a:hover {
+    text-decoration:none; 
+    color:{color:Link Hover};
+}
+
+img {
+    border:none;
+    text-decoration:none;
+}
+
+p {margin:0.5em 0em;}
+
+p:first-of-type {
+    margin-top:0em;
+    padding-top:0em;    
+}
+
+p:last-of-type {
+    margin-bottom:0em;
+    padding-bottom:0em;       
+}
+
+h1, h2, h3, h4 {
+    color:{color:Text};
+    margin:0;
+    padding:0;
+}
+
+h1 {font-size:1.3em;}
+h2 {font-size:1.2em;}
+h3 {font-size:1.1em;}
+h4 {font-size:1em;}
+
+small {font-size:0.8em;}
+big {font-size:1.2em;}
+
+blockquote {
+    margin:1em 0em;
+    padding-left:1em;
+    border-left:1px solid {color:Text};
+}
+
+.tumblr_parent {
+    border:0;
+    padding:0;
+}
+
+.tumlbr_parent:first-child, blockquote:first-child {margin-top:0;}
+.tumblr_parent:last-child {margin-bottom:0;} 
+
+blockquote blockquote {
+    margin:0.5em 0em;
+}
+    
+ 
+a.tumblr_blog {
+    color:{color:Text};
+    display:inline-block;
+    vertical-align:middle;
+    margin-bottom:0.8em;
+    margin-left:1em;
+}
+
+.caption .pe-7s-look {
+    font-size:1.25em;
+}
+
+.source a.tumblr_blog {margin:0!important;}
+
+.tumblr_avatar {
+    width:calc({text:Font Size} * 1.3)!important;
+    border-radius:calc({text:Font Size} * 1.3)!important;
+    {block:ifNotShowTumblrAvatar}
+    display:none;
+    {/block:ifNotShowTumblrAvatar}
+}
+
+/* sidebar */
+
+header {
+    margin-bottom:75px;
+    display:none;
+}
+
+aside {
+    position:fixed;
+    width:175px;
+    margin-left:-300px;
+}
+
+aside img, header img {
+    width:3.25em;
+    border:1px solid {color:Caption};
+    border-radius:100%;
+    padding:2px;
+    margin-right:1.5em;
+}
+
+{block:ifSidebarImage}
+#blogt, aside img, header img {display:inline-block;}
+
+#blogt {
+    vertical-align:top;
+    margin-top:1em;
+}
+{/block:ifSidebarImage}
+
+#blogt a, #blogt a:hover {
+    color:{color:Text};
+}
+
+nav {
+    margin:1.5em 0em;
+    {block:ifSidebarImage}
+    margin-top:1em;
+    {/block:ifSidebarImage}
+    column-count:2;
+    column-width:50%;
+}
+
+nav a {
+    color:{color:Text};
+    margin-bottom:0.5em;
+    display:block;
+}
+
+nav a:last-child {
+    margin-right:0;
+    margin-bottom:0;
+}
+
+/* homogenous */
+
+#posts, #creds {display:none;}
+.perma, #desc, .permalink, .date {opacity:0.6;}
+.tags, .date, nav a {font-size:0.95em;letter-spacing:0.05em;}
+.date {text-transform:lowercase;}
+.date, .quote, .question, .title, #blogt {font-weight:bold;}
+.date, .tags, .caption {margin-top:1em;}
+
+.photoset img, .photo img, .caption, .player-wrap {
+    {block:ifRounded}
+    border-radius:3px;
+    {/block:ifRounded}
+}
+
+.quote, .title, .question, #blogt {
+    letter-spacing:0.1em;
+    line-height:125%;
+    font-size:1.2em;
+}
+
+/* posts */
+
+#container {
+    width:100%;
+    margin:100px 0px 100px 0px;
+}
+
+#posts, .post {
+    min-width:200px;
+    width:{text:Post Width};
+    max-width:560px;
+}
+
+#posts {
+    {block:PermalinkPage}
+    margin-bottom:50px;
+    {/block:PermalinkPage}
+    max-width:100%;
+    margin:0px 400px;
+}
+
+.post {
+    margin-bottom:100px;
+    {block:PermalinkPage}
+    margin-bottom:100px;
+    width:600px;
+    {/block:PermalinkPage}
+}
+
+.post img {max-width:100%;height:auto;} 
+.photo iframe, .photo img {display:block;}
+.photoset img {display:none;}
+.photoset img:first-child {display:block;}
+.photo img {cursor:pointer;}
+.photoset {overflow:hidden;}
+
+.photo img, .photoset img {
+	width:100%;
+    height:auto;
+}
+
+/* text */
+
+.title, .quote {margin-bottom:0.5em;}
+.title, .title a {color:{color:Text};}
+.title a {border-bottom:1px solid {color:Text};}
+.title a:hover {color:{color:Link};border-bottom-color:{color:Link};}
+.caption, .chat {
+    padding:1em;
+    background:{color:Caption};
+}
+
+.caption {
+    {block:ifHideCaptions}
+    display:none;
+    {/block:ifHideCaptions}
+}
+
+{block:ifHideCaptions}
+.text, .answer {
+    display:block!important;
+}
+{/block:ifHideCaptions}
+
+
+/* chat */
+
+.chat {
+    list-style:none;
+}
+
+.label {
+    color:{color:Text};
+    font-weight:bold;
+    display:inline-block;
+    margin-right:0.5em;
+}
+
+.line {
+    padding:0.5em 0em;
+}
+
+.line:last-of-type {
+    border:0;
+    padding-bottom:0;
+}
+
+/* audio */
+
+.tumblr_audio_player {
+    overflow:hidden;
+    width:25px;
+    height:30px;
+    padding-left:0.5em;
+    padding-top:calc(0.5em + 2px);
+    padding-right:calc(0.5em + 7px);
+    padding-bottom:0.5em;
+}
+
+.spotify_audio_player {
+    height:80px!important;
+    width:100%!important;
+}
+
+.bandcamp_audio_player {
+    height:120px!important;
+    width:100%!important;
+}
+
+.player {
+    display:block;
+}
+
+.player-wrap {
+    background:{color:Text};
+    padding:0.5em 0.5em 0em 0.5em;
+}
+
+.audio-wrap {
+    text-align:left;
+    overflow:hidden;
+    width:75%;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+    color:{color:Background};
+    margin-top:calc(-2.5em - 5px);
+    margin-bottom:calc(2.5em + 5px);
+    margin-left:calc(2.5em + 55px);
+}
+
+.track {margin-right:1em;font-weight:bold;}
+
+/* video */
+
+.video {overflow:hidden;}
+
+/* ask */
+
+.asker {margin-bottom:0.5em;}
+.asker a, .asker span {color:{color:Text};}
+.asker a:hover {color:{color:Link Hover};}
+
+/* permalink and notes */
+
+.dash {
+    width:1em;
+    height:1px;
+    border-radius:100%;
+    display:inline-block;
+    background:{color:Accent};
+    margin:0em 0.5em;
+    vertical-align:middle;
+}
+
+.date a {
+    color:{color:Text};
+}
+
+.tags a {color:{color:Text};}
+
+.tags {
+    {block:IndexPage}
+    {block:ifHideTags}
+    display:none;
+    {/block:ifHideTags}
+    {/block:IndexPage}
+}
+
+.tags a {color:{color:Text};margin-right:1.5em;}
+.tags a:last-child {margin-right:0;}
+
+.reblog {display:inline-block;margin-right:1em;}
+
+.postnotes blockquote a {
+    color:{color:Link};
+}
+
+.postnotes {
+    margin-top:1em;
+}
+
+.postnotes blockquote {margin:0.5em 0em;border-left:0;}
+.postnotes .title {cursor:pointer;}
+
+ol.notes {
+    display:none;
+    padding:0px;
+    margin:0px;
+}
+
+ol.notes li.note img.avatar {display:none!important;}
+
+ol.notes li.note {
+    display:block;
+    padding:0;
+    margin:0.5em 0;
+}
+
+a.more_notes_link {
+    text-align:left!important;
+    display:block;
+    border:0;
+    color:{color:Text};
+}
+
+/* pagination */
+
+#pagination {
+    {block:ifInfiniteScroll}
+    display:none;
+    {/block:ifInfiniteScroll}
+}
+
+#pagination a {
+    color:{color:Text};
+}
+
+.next, .prev {
+    display:inline-block;
+}
+
+.prev {margin-right:1em;}
+
+#infscr-loading {display:none!important;}
+
+/* scroll to top */
+
+#scroll-top {
+    display:none;
+    cursor:pointer;
+    position:fixed;
+    bottom:35px;
+    right:15px;
+}
+
+#scroll-top i {
+    font-size:35px;
+}
+
+/* creds */
+
+#creds {
+    border:0;
+    bottom:20px;
+    right:29px;
+    font-family:sans-serif;
+    font-size:10px;
+    position:fixed;
+    color:{color:Text};
+}
+    
+{CustomCSS}
+
+</style>
+
+<script src ="//static.tumblr.com/fwgzvyf/Oj1o08f6h/shythemes.vr.js"></script>
+
+</head>
+
+<body>
+
+<div id="container">
+
+<section id="posts">
+
+<header>
+{block:ifSidebarImage}
+<a href="/"><img src="{image:Sidebar}" /></a>
+{/block:ifSidebarImage}
+<div id="blogt"><a href="/">{Title}</a></div>
+<nav>
+{block:ifHomeTitle}
+<a href="/">{text:Home Title}</a>
+{/block:ifHomeTitle}
+{block:ifAskTitle}
+<a href="/ask">{text:Ask Title}</a>
+{/block:ifAskTitle}
+{block:ifArchiveTitle}
+<a href="/archive">{text:Archive Title}</a>
+{/block:ifArchiveTitle}
+{block:ifLink1}<a href="{text:Link 1 URL}">{text:Link 1}</a>{/block:ifLink1}
+{block:ifLink2}<a href="{text:Link 2 URL}">{text:Link 2}</a>{/block:ifLink2}
+{block:ifLink3}<a href="{text:Link 3 URL}">{text:Link 3}</a>{/block:ifLink3}
+</nav>
+<div id="desc">
+{Description}
+</div>
+</header>
+
+<aside>
+{block:ifSidebarImage}
+<a href="/"><img src="{image:Sidebar}" /></a>
+{/block:ifSidebarImage}
+<div id="blogt"><a href="/">{Title}</a></div>
+<nav>
+{block:ifHomeTitle}
+<a href="/">{text:Home Title}</a>
+{/block:ifHomeTitle}
+{block:ifAskTitle}
+<a href="/ask">{text:Ask Title}</a>
+{/block:ifAskTitle}
+{block:ifArchiveTitle}
+<a href="/archive">{text:Archive Title}</a>
+{/block:ifArchiveTitle}
+{block:ifLink1}<a href="{text:Link 1 URL}">{text:Link 1}</a>{/block:ifLink1}
+{block:ifLink2}<a href="{text:Link 2 URL}">{text:Link 2}</a>{/block:ifLink2}
+{block:ifLink3}<a href="{text:Link 3 URL}">{text:Link 3}</a>{/block:ifLink3}
+</nav>
+<div id="desc">
+{Description}
+</div>
+</aside>
+
+{block:Posts}
+
+<article class="post">
+
+{block:Text}
+{block:Title}<div class="title">{Title}</div>{/block:Title}
+{/block:Text}
+
+{block:Link}
+<div class="title"><a href="{URL}">{Name}</a></div>
+{/block:Link}
+
+
+{block:Quote}
+<div class="quote">{Quote}</div>
+<div class="source">&mdash; {Source}</div>
+{/block:Quote}
+
+{block:Chat}
+{block:Title}<div class="title">{Title}</div>{/block:Title}
+{/block:Chat}
+
+
+{block:Answer}
+<div class="ask-wrap">
+<div class="asker"><span>{Asker}</span> sent</div>
+<div class="question">{Question}</div>
+</div>
+{/block:Answer}
+
+
+{block:Photo}
+<div class="photo" onclick="Tumblr.Lightbox.init([{ width: '{PhotoWidth-HighRes}', height: '{PhotoHeight-HighRes}', low_res: '{PhotoURL-500}', high_res: '{PhotoURL-HighRes}' }]);$('body').toggleClass('tumblr_lightbox_active');return false"><img src="{PhotoURL-HighRes}" alt="{PhotoAlt}"/></div>
+{/block:Photo}
+
+{block:Photoset}
+<div class="photoset">
+{block:IndexPage}
+{block:ifNotFullPhotoset}
+<a href="#" onclick="Tumblr.Lightbox.init([/*{block:Photos}, /**/ { width: {PhotoWidth-HighRes}, height: {PhotoHeight-HighRes}, low_res: '{PhotoURL-250}', high_res: '{PhotoURL-HighRes}' }{/block:Photos}]); $('body').toggleClass('tumblr_lightbox_active'); return false">{block:Photos}<img src="{PhotoURL-HighRes}"/><!--{/block:Photos}-->
+</a>
+{/block:ifNotFullPhotoset}
+{block:ifFullPhotoset}
+<div class="photo-slideshow" id="photoset_{PostID}" data-layout="{PhotosetLayout}">{block:Photos}<div class="photo-data"><div class="pxu-photo"><img src="{PhotoURL-500}" width="{PhotoWidth-500}" height="{PhotoHeight-500}" data-highres="{PhotoURL-HighRes}" data-width="{PhotoWidth-HighRes}" data-height="{PhotoHeight-HighRes}"></div><a class="tumblr-box" rel="post-{PostID}" href="{PhotoURL-HighRes}"></a></div>{/block:Photos}</div>
+{/block:ifFullPhotoset}
+{/block:IndexPage}
+{block:PermalinkPage}
+<div class="photo-slideshow" id="photoset_{PostID}" data-layout="{PhotosetLayout}">{block:Photos}<div class="photo-data"><div class="pxu-photo"><img src="{PhotoURL-500}" width="{PhotoWidth-500}" height="{PhotoHeight-500}" data-highres="{PhotoURL-HighRes}" data-width="{PhotoWidth-HighRes}" data-height="{PhotoHeight-HighRes}"></div><a class="tumblr-box" rel="post-{PostID}" href="{PhotoURL-HighRes}"></a></div>{/block:Photos}</div>
+{/block:PermalinkPage}
+</div>
+{/block:Photoset}
+
+{block:Video}
+<div class="video">{Video-500}</div>
+{/block:Video}
+
+{block:Audio}
+<div class="audio">
+<div class="player-wrap">
+<div class="player">
+{block:AudioPlayer}
+{AudioPlayer}
+{/block:AudioPlayer}
+</div>
+</div>
+<div class="audio-wrap">
+<span class="track">{block:TrackName}{TrackName}{/block:TrackName}</span>
+<span class="artist">{block:Artist}{Artist}{/block:Artist}</span>
+</div>
+</div>
+{/block:Audio}
+
+{block:IndexPage}
+<div class="date">
+<a href="{Permalink}">{Month} {DayOfMonth}</a> 
+<div class="dash"></div>
+<a href="{Permalink}">{12Hour}:{Minutes} {AMPM}</a>
+</div>
+{/block:IndexPage}
+
+{block:Caption}
+<div class="caption">{Caption}</div>
+{/block:Caption}
+
+{block:Text}
+<div class="caption text">{Body}</div>
+{/block:Text}
+
+{block:Link}
+<div class="caption text">{Description}</div>
+{/block:Link}
+
+{block:Chat}
+<ol class="chat">
+{block:Lines}
+<li class="line {Alt}">
+{block:Label}<span class="label">{Label}</span>{/block:Label} 
+{Line}
+</li>
+{/block:Lines}
+</ol>
+{/block:Chat}
+{block:Answer}
+<div class="caption answer">{Answer}</div>
+{/block:Answer}
+
+{block:IndexPage}
+<div class="permalink">
+{block:HasTags}
+<div class="tags">
+{block:Tags}<a href="{TagUrl}">{Tag}</a> {/block:Tags}
+</div>
+{/block:HasTags}
+</div>
+{/block:IndexPage}
+
+</article>
+
+{block:PermalinkPage}
+<div id="permalink">
+{block:Date}
+<div class="title">Posted on {Month} {DayOfMonth}{DayOfMonthSuffix}, {Year} at {12hour}:{Minutes}{ampm}</div>
+{block:RebloggedFrom}
+<span class="reblog">
+via <a href="{ReblogParentURL}">{ReblogParentName}</a>
+</span>
+<span class="reblog">
+{block:ContentSource}source <a href="{ReblogRootURL}">{ReblogRootName}</a>{/block:ContentSource}
+</span>
+{/block:RebloggedFrom}
+{block:HasTags}
+<div class="tags perma">
+{block:Tags}<a href="{TagUrl}">{Tag}</a> {/block:Tags}
+</div>
+{/block:HasTags}
+</div>
+{block:PostNotes} 
+<div class="postnotes">
+<div class="title">{NoteCountwithLabel}</div>
+<div id="notes">{PostNotes}</div>
+</div>
+{/block:PostNotes}
+{/block:Date}
+{/block:PermalinkPage}
+{/block:Posts}
+
+
+{block:Pagination}
+<footer id="pagination">
+{block:PreviousPage}<a href="{PreviousPage}" class="prev">previous page</a>{/block:PreviousPage}
+{block:NextPage}<a href="{NextPage}" class="next">next page</a>{/block:NextPage}
+</footer>
+{/block:Pagination}
+
+
+</section>
+
+<script src="http://static.tumblr.com/wgg6svp/OoTofxa0c/unnest.min.js"></script>
+<link href="https://static.tumblr.com/qudkd6d/OcDnl99gb/style.css" rel="stylesheet" type="text/css"/>
+<script src="http://static.tumblr.com/yxfeliq/hHwojmt8m/bctphotoset.min.js"></script>
+
+<script>
+$(document).ready(function(){
+   $('.photo-slideshow').pxuPhotoset({
+       lightbox: true,
+       rounded: false,
+       gutter: '1px',
+       borderRadius: '0px',
+       photoset: '.photo-slideshow',
+       photoWrap: '.photo-data',
+       photo: '.pxu-photo'
+   });
+});
+</script>
+
+<script>
+$(document).ready(function() {
+    $(".post").unnest({ 
+     yourCaption: ".caption", 
+     wrapName: ".tumblr_parent", 
+     newCaptionUsername: false, 
+     originalPostCaptionUsername: false,
+     {block:ifShowTumblrAvatar}
+     tumblrAvatars: true,
+     {/block:ifShowTumblrAvatar}
+     {block:ifNotShowTumblrAvatar}
+     tumblrAvatars: false,
+     {/block:ifNotShowTumblrAvatar}
+     tumblrAvatarClass: ".tumblr_avatar",
+     usernameColon: false
+    });
+});
+</script>
+
+<script>
+// minimal soundcloud player © shythemes.tumblr
+function audioPlayers() {
+   var color = '#111111'; // color of play button (hex) 
+   $('.soundcloud_audio_player').each(function(){
+       $(this).attr({ src: $(this).attr('src').split('&')[0] + '&amp;liking=false&amp;sharing=false&amp;auto_play=false&amp;show_comments=false&amp;continuous_play=false&amp;buying=false&amp;show_playcount=false&amp;show_artwork=false&amp;origin=tumblr&amp;color=' + color.split('#')[1], height: 116, width: '100%' });
+   });
+   
+// resize other audio players    
+   $(".spotify_audio_player").each(function() {
+       $(this).attr("height", 80);
+       $(this).attr("width", "100%");
+   });
+   
+   $(".bandcamp_audio_player").each(function() {
+       $(this).attr("height", 120);
+       $(this).attr("width", "100%");
+   });
+   
+    var color = $("body").css("color");
+    var color2 = $("body").css("background-color");
+      $('iframe.tumblr_audio_player').load(function() {
+         $('iframe.tumblr_audio_player').contents().find("head")
+            .append($("<style type='text/css'> .audio-player {background:" + color + "!important;} .play-pause{color:" + color2 + "!important;}</style>"));
+      });
+
+   
+};
+
+$(document).ready(audioPlayers);
+</script>
+
+{block:IndexPage}
+{block:ifInfiniteScroll}
+
+<script src="https://static.tumblr.com/wgijwsy/u2vm2hxv6/jquery.infinitescroll.min.js"></script>
+
+<script>
+$(document).ready(function(){
+    var $container = $('#posts');
+    $container.infinitescroll({
+            itemSelector: '.post',
+            navSelector: '#pagination',
+            nextSelector: '#pagination a',
+            loadingImg: '',
+            loadingText: '<em></em>',
+            bufferPx: 800
+    },
+    function(arrayOfNewElems) {
+        resizeVideos();
+        audioPlayers();
+        {block:ifNotShowTumblrAvatar}
+        avatar();
+        {/block:ifNotShowTumblrAvatar}
+        var $newElems = $(arrayOfNewElems);
+        $newElems.find('.photo-slideshow').pxuPhotoset({
+            lightbox: true,
+            rounded: false,
+            gutter: '1px',
+            borderRadius: '0px',
+            photoset: '.photo-slideshow',
+            photoWrap: '.photo-data',
+            photo: '.pxu-photo'
+        });
+        $newElems.unnest({    
+            yourCaption: ".caption", 
+            wrapName: ".tumblr_parent", 
+            newCaptionUsername: false, 
+            originalPostCaptionUsername: false,
+            {block:ifShowTumblrAvatar}
+            tumblrAvatars: true,
+            {/block:ifShowTumblrAvatar}
+            {block:ifNotShowTumblrAvatar}
+            tumblrAvatars: false,
+            {/block:ifNotShowTumblrAvatar}
+            tumblrAvatarClass: ".tumblr_avatar",
+            usernameColon: false
+        });
+    });
+});
+</script>
+{/block:ifInfiniteScroll}
+{/block:Indexpage}
+
+</div>
+
+<div id="scroll-top">
+<i class="pe-7s-angle-up"></i>
+</div>
+
+<!--{block:ContentSource}{SourceURL}{block:SourceLogo}<img src="{BlackLogoURL}" width="{LogoWidth}" height="{LogoHeight}" alt="{SourceTitle}" />{/block:SourceLogo}{block:NoSourceLogo}{SourceLink}{/block:NoSourceLogo}{/block:ContentSource}-->
+
+<a id="creds" href="http://nouvae.tumblr.com" title="theme by nouvae">#</a>
+
+</body>
+</html>
