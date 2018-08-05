@@ -183,7 +183,6 @@ big {font-size:1.8em;}
 
 .tumblr_parent:last-of-type {
     padding-bottom:0;
-    margin-bottom:0;
     border-bottom:0;
 }
 
@@ -301,13 +300,12 @@ nav a:last-child {margin-right:0;}
 }
 
 {block:ifRounded}
-.post img {
-    border-radius:5px 5px 0px 0px;
-}
-
-.post, .answer, .question, .player-wrap {block:IndexPage}{block:ifNotStaticPermalink}, .post img {/block:ifNotStaticPermalink}{/block:IndexPage} {
+.post, .answer, .question, .player-wrap {
     border-radius:5px;
 }
+
+{block:IndexPage}.photoset img:first-of-type,{/block:IndexPage} .photo .ph:first-child, .photo img:first-of-type, .photoset .ph:first-child {block:PermalinkPage}.photoset img:first-child{/block:PermalinkPage} {border-radius:5px 5px 0px 0px;}
+
 {/block:ifRounded}
 
 .post-wrap {
@@ -338,6 +336,7 @@ nav a:last-child {margin-right:0;}
 
 .p, .pp, .v {
     width:{select:Post Height};
+    height:{select:Post Height};
     {block:PermalinkPage}
     width:100%;
     {/block:PermalinkPage}
@@ -351,6 +350,24 @@ nav a:last-child {margin-right:0;}
 
 .photo, .photoset {
     position:relative;
+    min-width:1.5em;
+    {block:IndexPage}
+    height:{select:Post Height};
+    width:{select:Post Height};
+    {/block:IndexPage}
+}
+
+.mobph {display:none;}
+
+.ph {
+    width:100%;
+    height:100%;
+}
+
+.photoset .ph {
+    position:absolute;
+    cursor:pointer;
+    opacity:0;
 }
 
 .photoset:hover .setcount {opacity:1;}
@@ -368,10 +385,7 @@ nav a:last-child {margin-right:0;}
     font-family:nunito, sans-serif;
 }
 
-{block:IndexPage}
-.photoset img {opacity:0;position:absolute;cursor:pointer;}
-{/block:IndexPage}
-.photoset img, .showing, .photoset:hover .setcount, .setcount {transition:0.6s;}
+.showing, .ph, .photoset:hover .setcount, .setcount {transition:0.6s;}
 .showing {opacity:1!important;}
 
 .photoset img, .photo img, .caption img {
@@ -508,6 +522,9 @@ nav a:last-child {margin-right:0;}
 /* video */
 
 .video {overflow:hidden;}
+{block:PermalinkPage}
+.video iframe {max-height:540px!important}
+{/block:PermalinkPage}
 {block:IndexPage}
 .video iframe {top:0;left:0;position:absolute;}
 {/block:IndexPage}
@@ -574,8 +591,8 @@ nav a:last-child {margin-right:0;}
     font-size:0.95em;
 }
 
-.reblog, .dash {vertical-align:middle;display:inline-block;}
-.reblog .dash {margin:0em 1em;}
+.reblogged, .dash {vertical-align:middle;display:inline-block;}
+.reblogged .dash {margin:0em 1em;}
 
 .tags {
     {block:IndexPage}
@@ -591,7 +608,6 @@ nav a:last-child {margin-right:0;}
 
 .postnotes {
     margin-top:2em;
-    font-size:0.95em;
 }
 
 .postnotes blockquote {margin:0.5em 0em;border-left:0;}
@@ -677,20 +693,30 @@ a.more_notes_link {
 /* media queries */
 
 @media only screen and (max-width:850px) {
+    {block:ifNotCenterAlign}
     header, #pagination, #permalink {
         margin-left:0;
         margin-right:0;
     }
-    
+    {/block:ifNotCenterAlign}
     .post-wrap {
         {block:IndexPage}
         width:calc(100% - 3em)!important;
         {/block:IndexPage}
-        height:auto!important;
-        overflow:auto!important;
+        min-height:1.5em;
+        height:auto;
+        overflow:auto!important
     }
     
-    .photoset img, .photo img {
+    .pp, .p {block:IndexPage}, .v{/block:IndexPage} {
+        width:100%!important;
+    }
+    
+    .mobph:first-of-type {
+        display:block!important;
+    }
+    
+    .photoset, .photo {
         width:100%!important;
         height:auto!important;
     }
@@ -699,19 +725,27 @@ a.more_notes_link {
         position:relative!important;
     }
     
-    .video iframe {
-        width:100%!important;
-        height:100%!important;
-        text-align:center!important;
+    {block:IndexPage}
+    .v {
+        padding:1.5em!important;
+        overflow:hidden!important;
+        height:150px!important;
     }
+    
+    .video iframe {
+        display:none!important;
+    }
+    
+    .video .link {
+        display:block!important;
+    }
+    {/block:IndexPage}
      
      .post {
         width:100%!important;
         display:block;
         margin:6em 0em;
     }
-    
-    .pp-a, .p-a, .v-a, .p, .pp, .v {width:100%!important;}
      
     .shortened {
         height:auto!important;
@@ -723,8 +757,7 @@ a.more_notes_link {
         position:relative!important;
     }
     
-    .photoset img, .showing, .setcount {display:none;opacity:0!important;}
-    .photoset img:first-child {display:block!important;opacity:1!important;}
+    .setcount, .ph {display:none;opacity:0!important;}
     
     .permalink {
         opacity:1;
@@ -774,7 +807,7 @@ a.more_notes_link {
 
 {block:Posts}
 
-<article class="post {block:Photoset}pp-a{/block:Photoset}{block:Photo}p-a{/block:Photo}{block:Video}v-a{/block:Video}">
+<article class="post {block:Video}v-a{/block:Video}">
 
 <div class="post-wrap {block:Photoset}pp{/block:Photoset}{block:Photo}p{/block:Photo}{block:Video}v{text:Photo Height}{/block:Video}">
 
@@ -836,7 +869,12 @@ a.more_notes_link {
 
 {block:Photo}
 {block:IndexPage}
-<div class="photo"><img src="{PhotoURL-HighRes}" alt="{PhotoAlt}"/></div>
+<div class="photo">
+<div class="ph" data-width="{PhotoWidth-HighRes}" data-height="{PhotoHeight-HighRes}" style="background:url('{PhotoURL-HighRes}')"></div>
+</div>
+<div class="photo">
+<img class="mobph" src="{PhotoURL-HighRes}" />
+</div>
 {/block:IndexPage}
 {block:PermalinkPage}
 <div class="photo" onclick="Tumblr.Lightbox.init([{ width: '{PhotoWidth-HighRes}', height: '{PhotoHeight-HighRes}', low_res: '{PhotoURL-500}', high_res: '{PhotoURL-HighRes}' }]);$('body').toggleClass('tumblr_lightbox_active');return false"><img src="{PhotoURL-HighRes}" alt="{PhotoAlt}"/></div>
@@ -846,7 +884,9 @@ a.more_notes_link {
 {block:Photoset}
 <div class="photoset">
 {block:IndexPage}
-{block:Photos}<img src="{PhotoURL-HighRes}" alt="{PhotoAlt}" />{/block:Photos}
+{block:Photos}<div class="ph" data-width="{PhotoWidth-HighRes}" data-height="{PhotoHeight-HighRes}" style="background:url('{PhotoURL-HighRes}')"></div>{/block:Photos}{block:Photos}
+<img class="mobph" src="{PhotoURL-HighRes}" />
+{/block:Photos}
 <div class="setcount"><span class="setcounter">1</span>/{PhotoCount}</div>
 {/block:IndexPage}
 {block:PermalinkPage}
@@ -856,7 +896,16 @@ a.more_notes_link {
 {/block:Photoset}
 
 {block:Video}
-<div class="video">{Video-700}</div>
+<div class="video">
+{block:IndexPage}
+<div class="link">
+<div class="title">
+<a href="{Permalink}">Video</a>
+</div>
+</div>
+{/block:IndexPage}
+{Video-700}
+</div>
 {/block:Video}
 
 {block:Audio}
@@ -916,16 +965,16 @@ a.more_notes_link {
 {block:Date}
 <div class="title">Posted on {DayOfMonth} {Month}, {Year} at {12hour}:{Minutes}{ampm}</div>
 {block:RebloggedFrom}
-<div class="reblog">
+<div class="reblogged">
 via <a href="{ReblogParentURL}">{ReblogParentName}</a>
 </div>
+{/block:RebloggedFrom}
 {block:ContentSource}
-<div class="reblog">
+<div class="reblogged">
 <div class="dash"></div>
-source <a href="{ReblogRootURL}">{ReblogRootName}</a>
+source <a href="{SourceURL}">{SourceTitle}</a>
 </div>
 {/block:ContentSource}
-{/block:RebloggedFrom}
 {block:HasTags}
 <div class="tags">
 {block:Tags}<a href="{TagUrl}">#{Tag}</a> {/block:Tags}
@@ -1061,7 +1110,7 @@ function addFadeOut() {
 {block:IndexPage}
 function setPhotoToggle() {
     $(".photoset:not(.addedClass)").each(function() {
-        $(this).addClass("addedClass").find("img").first().addClass("showing");
+        $(this).addClass("addedClass");
     });
     $(".photoset").unbind("click", photosetToggle);
     $(".photoset").bind("click", photosetToggle);
@@ -1069,16 +1118,16 @@ function setPhotoToggle() {
 
 function photosetToggle() {
     var current = $(this).find(".showing");
-    var index = $(this).find("img").index(current) + 1;
-    var numOfPhotos = $(this).find("img").length;
+    var index = $(this).find(".ph").index(current) + 1;
+    var numOfPhotos = $(this).find(".ph").length;
     current.removeClass("showing");
     if (index < numOfPhotos) {
         var i = index + 1;
-        current = $(this).find("img:nth-child(" + i + ")");
+        current = $(this).find(".ph:nth-child(" + i + ")");
         $(this).find(".setcounter").empty().append(i);
     }
     else {
-        current = $(this).find("img").first();
+        current = $(this).find(".ph").first();
         $(this).find(".setcounter").empty().append("1");
     }
     current.addClass("showing");
@@ -1086,47 +1135,46 @@ function photosetToggle() {
 
 function fixImages() {
     $(".p:not(.fixed)").each(function() {
-        var count = 1;
-        var originalWidth = $(this).find("img:first-child").width();
-        var originalHeight = $(this).find("img:first-child").height();
-        var height = $(this).width();
-        var scaled = (originalWidth / originalHeight);
-        var width = scaled * height;
-        $(this).find("img").css({ width : width + "px" });
-        $(this).css({ height : height + "px", width : width + "px" });
-        $(this).addClass("fixed");
-    });
-
-    $(".pp:not(.fixed)").each(function() {
-        var count = 1;
-        var originalWidth = $(this).find("img:first-child").width();
-        var originalHeight = $(this).find("img:first-child").height();
-        var height = $(this).width();
-        var scaled = (originalWidth / originalHeight);
-        var width = scaled * height;
-
-        $("img", $(this)).each(function() {
-            var w = $(this).width();
-            var h = $(this).height();
-            var ww = (w / h) * height;
-            if (count === 1) {
-                $(this).css({ height : height + "px" });
-            }
-            else if (ww < width) {
-                $(this).css({ width : width + "px" });
-            }
-            else if ((w - 30) > h) {
-                $(this).css({ width : ww + "px" });
-            }
-            else {
-                $(this).css({ height : height + "px" });
-            }
-            count++;
+        var photo = $(this).find(".photo");
+        var height = photo.height();
+        var img = photo.find(".ph");
+        var width = parseInt((height * img.attr("data-width")) / img.attr("data-height"));
+        
+        photo.css({
+            width : width
         });
-        $(this).css({ height : height + "px", width : width + "px" });
-        $(this).addClass("fixed");
+        
+        $(this).css({
+            width: width
+        });
+        
+        $(".p").addClass("fixed");
     });
-
+    
+    $(".pp:not(.fixed)").each(function() {
+        var photo = $(this).find(".photoset");
+        var height = photo.height();
+        var img = photo.find(".ph");
+        var width = parseInt((height * img.attr("data-width")) / img.attr("data-height"));
+        
+        photo.css({
+            width : width
+        });
+        
+        $(this).css({
+            width: width
+        });
+        
+        $(".ph:first-child").addClass("showing");
+        $(".pp").addClass("fixed");
+    });
+    
+    $(".ph").css({
+        backgroundPosition: "center",
+        backgroundSize: "cover",
+        backgroundRepeat: "no-repeat"
+    });
+    
     $(".v:not(.fixed)").each(function() {
         var originalWidth = $(this).find("iframe").width();
         var originalHeight = $(this).find("iframe").height();
@@ -1149,6 +1197,14 @@ $(document).ready(trigger);
 {block:IndexPage}
 $(document).ready(toggle);
 {/block:IndexPage}
+
+if ($(window).width() < 850) {
+    $(window).resize(function() {
+        if ($(window).width() >= 850) {
+            window.location.href = window.location.href;
+        }
+    });
+}
 
 </script>
 
