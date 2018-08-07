@@ -51,7 +51,7 @@ vito theme by nouvae
 <meta name="if:Hide Captions" content=""/>
 <meta name="if:Hide Tags" content=""/>
 <meta name="if:Rounded" content=""/>
-<meta name="if:Scrollbar" content=""/>
+<meta name="if:Custom Scrollbar" content=""/>
 <meta name="if:Infinite Scroll" content=""/>
 
 <meta name="text:Home Title" content="index"/>
@@ -161,7 +161,7 @@ $(document).ready(avatar);
 
 /* scrollbar */
 
-{block:ifScrollbar}
+{block:ifCustomScrollbar}
 ::-webkit-scrollbar {
     height:3px;
     width:8px;
@@ -176,7 +176,7 @@ $(document).ready(avatar);
 ::-webkit-scrollbar-track {
     background:{color:Background};
 }
-{/block:ifScrollbar}
+{/block:ifCustomScrollbar}
 
 /* lightbox */
 
