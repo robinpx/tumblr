@@ -52,7 +52,6 @@ juno theme by nouvae
 
 <meta name="if:Show Tumblr Avatar" content=""/>
 <meta name="if:Rounded" content=""/>
-<meta name="if:Show Notes" content=""/>
 <meta name="if:Hover Permalink" content=""/>
 <meta name="if:Alternative Permalink" content=""/>
 <meta name="if:Infinite Scroll" content="" />
@@ -70,7 +69,7 @@ juno theme by nouvae
 <!-- jquery -->
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-<script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+<script src="https://code.jquery.com/ui/1.10.4/jquery-ui.min.js"></script>
 
 <script>
 
@@ -626,7 +625,7 @@ header {margin-bottom:3em;}
 .permalink {
     z-index:9999999;
     position:absolute;
-    bottom:1.75em;
+    bottom:1.5em;
     right:1.5em;
     {block:ifAlternativePermalink}
     width:100%;
@@ -654,17 +653,14 @@ header {margin-bottom:3em;}
     color:{color:Background};
     {/block:ifNotAlternativePermalink}
     {block:ifAlternativePermalink}
-    font-size:1.2em;
+    font-size:1.1em;
     text-transform:uppercase;
     width:8em;
     text-align:center;
     top:50%;
     left:50%;
-    margin-top:-2em;
+    margin-top:-1em;
     margin-left:-4em;
-    {block:ifShowNotes}
-    margin-top:-3.25em;
-    {/block:ifShowNotes}
     position:absolute;
     color:{color:Text};
     z-index:9999;
@@ -672,9 +668,8 @@ header {margin-bottom:3em;}
 }
 
 .permalink a span {
-    font-size:2em;
-    margin:0.3em 0em;
-    display:block;
+    margin:0em 0.3em;
+    display:inline-block;
 }
 
 .permalink a, .permalink, 
@@ -895,21 +890,11 @@ a.more_notes_link {
 
 <div class="permalink">
 <a href="{Permalink}">
-{block:ifNotAlternativePermalink}
 {TimeAgo}
-{/block:ifNotAlternativePermalink}
 {block:ifAlternativePermalink}
-{ShortDayOfWeek}<span>{DayOfMonth}</span>{ShortMonth}
-{block:ifShowNotes}
 <br><div class="notecount">{NoteCountWithLabel}</div>
-{/block:ifShowNotes}
 {/block:ifAlternativePermalink}
 </a>
-{block:ifNotAlternativePermalink}
-{block:ifShowNotes}<br>
-<a href="{Permalink}">{NoteCountWithLabel}</a>
-{/block:ifShowNotes}
-{/block:ifNotAlternativePermalink}
 </div>
 
 {/block:IndexPage}
