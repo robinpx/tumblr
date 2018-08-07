@@ -28,10 +28,10 @@ agnès theme by nouvae
 <meta name="color:Link Hover" content="#000000"/>
 <meta name="color:Accent" content="#cccccc"/>
 <meta name="select:Font Family" content="serif"/>
-<meta name="select:Font Family" content="century"/>
+<meta name="select:Font Family" content="monospace"/>
 <meta name="select:Font Family" content="helvetica"/>
-<meta name="select:Font Family" content="franklin gothic"/>
-<meta name="select:Font Family" content="consolas" />
+<meta name="select:Font Family" content="news gothic"/>
+<meta name="select:Font Family" content="georgia" />
 <meta name="select:Font Family" content="courier" />
 <meta name="select:Post Position" content="top" />
 <meta name="select:Post Position" content="middle" />
@@ -207,7 +207,7 @@ $(document).ready(randomize);
 body {
     background:{color:Background};
     color:{color:Text};
-    font-family:{text:Google Font}, {select:Font Family}, serif;
+    font-family:{block:ifGoogleFont}{text:Google Font},{/block:ifGoogleFont} {select:Font Family}, serif;
     font-size:{text:Font Size};
     font-weight:normal;
     {block:ifCenterAlign}
@@ -255,7 +255,7 @@ p:last-of-type {
 h1, h2, h3, h4 {
     margin:0;
     padding:0;
-    line-height:150%;
+    line-height:130%;
 }
 
 h1 {font-size:2em;}
