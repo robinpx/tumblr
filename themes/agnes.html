@@ -353,10 +353,6 @@ nav a {
 header nav a, header nav a:hover, #pagination a:hover 
 {color:{color:Text};}
 
-{block:ifNotAlternativeTitle}
-header, #pagination {font-size:1.1em;}
-{/block:ifNotAlternativeTitle}
-
 #permalink, #pagination {
     margin:65px;
     margin-top:25px;
@@ -523,7 +519,7 @@ header, #pagination {font-size:1.1em;}
 /* permalink and notes */
 
 {block:ifNotRemoveAccentFont}
-.perma, .tags, .rs, .note {font-size:0.8em;font-family:ibm plex mono, courier;}
+.perma, .tags, #reblogged, #source, .note {font-size:0.8em;font-family:ibm plex mono, courier;}
 {/block:ifNotRemoveAccentFont}
 
 #permalink {
@@ -539,7 +535,7 @@ header, #pagination {font-size:1.1em;}
 }
 
 .tcomma:last-child {display:none;}
-.reblog, .source {display:block;}
+#reblogged, #source {display:block;}
 .postnotes {margin-top:2em!important;}
 
 {block:ifCenterAlign}
@@ -760,18 +756,16 @@ Filed in:
 <div id="permalink">
 {block:Date}
 <div class="title">Posted on {Month} {DayOfMonth}{DayOfMonthSuffix}, {Year} at {12hour}:{Minutes}{ampm}</div>
-<div id="reblogged">
 {block:RebloggedFrom}
-<span class="rs">
+<div class="reblogged">
 via <a href="{ReblogParentURL}">{ReblogParentName}</a>
-</span>
+</div>
 {/block:RebloggedFrom}
 {block:ContentSource}
-<span class="rs">
+<div id="source">
 source <a href="{SourceURL}">{SourceTitle}</a>
-</span>
-{/block:ContentSource}
 </div>
+{/block:ContentSource}
 {block:HasTags}
 <div class="tags">
 Filed in:
