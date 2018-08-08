@@ -1,3 +1,5 @@
+/* flexibleVideos script by @robinpx on github */
+
 function fixFrame(selector) {
     zoom(selector);
        
