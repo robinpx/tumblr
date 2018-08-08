@@ -21,7 +21,7 @@ function fixFrame(selector) {
     selector.find("iframe").css({ position: "absolute", width: "100%", height: "100%", left: "0", bottom: "0" }); 
 }
 
-function flexibleFrames(selector) {
+function flexibleVideos(selector) {
     selector.not(".resized").each(function() {
        fixFrame($(this).find("iframe:not(.instagram-media, .bandcamp_audio_player, .spotify_audio_player, .soundcloud_audio_player)").parent());
        $(this).addClass("resized");
