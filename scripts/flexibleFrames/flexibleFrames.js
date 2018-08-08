@@ -4,7 +4,7 @@ function fixFrame(selector) {
     fixVidRatio(selector); 
     var height = selector.find("iframe").height();
     var wid = selector.find("iframe").width();
-    console.log(selector.find("iframe").attr("src") + " and " + wid)
+    
     if (height === wid) { 
         if (wid < 540) {
             height = 540; 
