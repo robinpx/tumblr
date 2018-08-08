@@ -11,9 +11,6 @@ function fixFrame(selector) {
            } 
            height = 540;
        }
-       if (height > 540) { 
-           height = 540; 
-       }
         
        var heightPercent = (height  / wid) * 100;
        if (height > wid) { 
