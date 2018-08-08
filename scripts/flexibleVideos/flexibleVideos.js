@@ -30,7 +30,9 @@ function flexibleVideos(selector) {
         });
         $(".tumblr_video_container").css({ height: "auto", width: "auto" });
         selector.find(".tumblr_video_container").parent().css({ maxHeight : "540px" }); // back-up  
-        $("<style>.flickr-embed-frame {min-width:100%!important;width:100%!important;height:45vw!important;} .instagram-media {max-width:auto!important;min-width:auto!important;}</style>").appendTo("head");
+        $(window).on("load", function() {
+        $("<style>.flickr-embed-frame {min-width:100%!important;width:100%!important;height:45vw!important;} .instagram-media {max-width:auto!important;min-width:auto!important;} .spotify_audio_player { height:80px!important;} .spotify_audio_player, .soundcloud_audio_player, .bandcamp_audio_player {width:100%!important;}</style>").appendTo("head");
+        });
 }
 
 function fixVidRatio(selector) {
