@@ -25,6 +25,7 @@ $(document).ready(function() {
 
 You can also resize the iframes in other containers like inside a caption.
 **It must be wrapped in another element.**
+
 Example:
 ```javascript
 function flexVids() {
