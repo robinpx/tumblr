@@ -19,7 +19,7 @@ function fixFrame(selector) {
         
     selector.css({ position: "relative", width: "100%", height: "0", paddingBottom: heightPercent + "%" });
     selector.find("iframe").css({ position: "absolute", width: "100%", height: "100%", left: "0", bottom: "0" });
-    selector.find(".tumblr_video_iframe").parent(".video").css({ maxHeight: "540px" }); // back-up   
+    selector.find(".tumblr_video_iframe").parent().css({ maxHeight: "540px" }); // back-up   
 }
 
 function flexibleFrames(selector) {
