@@ -18,8 +18,7 @@ function fixFrame(selector) {
     }
         
     selector.css({ position: "relative", width: "100%", height: "0", paddingBottom: heightPercent + "%" });
-    selector.find("iframe").css({ position: "absolute", width: "100%", height: "100%", left: "0", bottom: "0" });
-    selector.find(".tumblr_video_iframe").parent().css({ maxHeight: "540px" }); // back-up   
+    selector.find("iframe").css({ position: "absolute", width: "100%", height: "100%", left: "0", bottom: "0" }); 
 }
 
 function flexibleFrames(selector) {
@@ -28,6 +27,7 @@ function flexibleFrames(selector) {
        $(this).addClass("resized");
     });
     $(".tumblr_video_container").css({ height: "auto", width: "auto" });
+    selector.find(".tumblr_video_container").parent().css({ maxHeight : "540px" }); // back-up  
 }
 
 function zoom(selector) {
