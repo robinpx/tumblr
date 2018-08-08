@@ -1,4 +1,4 @@
-/* flexibleVideos script by @robinpx on github */
+/* flexibleFrames script by @robinpx on github */
 
 function fixFrame(selector) {
     fixVidRatio(selector); 
@@ -20,7 +20,7 @@ function fixFrame(selector) {
     selector.find("iframe").css({ position: "absolute", width: "100%", height: "100%", left: "0", bottom: "0" }); 
 }
 
-function flexibleVideos(selector) {
+function flexibleFrames(selector) {
         selector.not(".resized").each(function() {
            var frame = $(this).find("iframe:not(.bandcamp_audio_player, .spotify_audio_player, .soundcloud_audio_player)");
            frame.on("load", function() {
@@ -31,8 +31,9 @@ function flexibleVideos(selector) {
         $(".tumblr_video_container").css({ height: "auto", width: "auto" });
         selector.find(".tumblr_video_container").parent().css({ maxHeight : "540px" }); // back-up  
         $(window).on("load", function() {
-        $("<style>.flickr-embed-frame {min-width:100%!important;width:100%!important;height:45vw!important;} .instagram-media {max-width:auto!important;min-width:auto!important;} .spotify_audio_player { height:80px!important;} .spotify_audio_player, .soundcloud_audio_player, .bandcamp_audio_player {width:100%!important;}</style>").appendTo("head");
-        });
+        $("<style>.flickr-embed-frame {min-width:100%!important;width:100%!important;height:45vw!important;}</style>").appendTo("head");
+        }); // not guarenteed to work unless fully loaded
+        $("<style>.instagram-media {max-width:auto!important;min-width:auto!important;} .spotify_audio_player { height:80px!important;} .spotify_audio_player, .soundcloud_audio_player, .bandcamp_audio_player {width:100%!important;}</style>").appendTo("head");
 }
 
 function fixVidRatio(selector) {
