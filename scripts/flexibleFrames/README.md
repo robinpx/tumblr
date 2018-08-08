@@ -1,13 +1,13 @@
 ## flexibleVideos.js
-**flexibleVideos.js** is a short script in JS that makes Tumblr, Youtube, and Vimeo video iframes flexible and responsive. Utilizes little HTML, no CSS, and fully JS reliant. Dependent on JQuery 1.7.1. 
+**flexibleVideos.js** is a short script in JS that makes Tumblr, Youtube, Vimeo, Instagram, Spotify, Bandcamp, and Soundcloud iframes flexible and responsive. Utilizes little HTML, no CSS, and fully JS reliant. Dependent on JQuery 1.7.1. 
 
-[Demo](https://nouvae.tumblr.com/codes/flexibleVideos)
+[Demo](https://nouvae.tumblr.com/codes/flexibleFrames)
 
 ### Installation
 
 ```
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-<script src="https://rawgit.com/robinpx/tumblr/master/scripts/flexibleVideos/flexibleVideos.js"></script>
+<script src="https://rawgit.com/robinpx/tumblr/master/scripts/flexibleFrames/flexibleFrames.js"></script>
 ```
 To use, all you need is to call the function resizeVideos(*parameter*). It passes a selector as an argument. 
 
@@ -19,7 +19,7 @@ Example:
 ```
 ```javascript
 $(document).ready(function() {
-  flexibleVideos($(".video"));  // $(".video") is the class selector passed in the argument
+  flexibleFrames($(".video"));  // $(".video") is the class selector passed in the argument
 });
 ```
 
@@ -28,15 +28,15 @@ You can also resize the iframes in other containers like inside a caption.
 
 Example:
 ```javascript
-function flexVids() {
+function flexFrame() {
    $(".caption").each(function() {
         $(this).find("iframe").wrap("<div class='iframe-flex'></div>"); // wrap iframe 
-        flexibleVideos($(".iframe-flex"));
+        flexibleFrames($(".iframe-flex"));
     });
-    flexibleVideos($(".video"));
+    flexibleFrames($(".video"));
 }
 
-$(document).ready(flexVids);
+$(document).ready(flexFrame);
 ```
 
 Implemented with infinite scroll:
@@ -48,7 +48,7 @@ $(document).ready(function(){
             // options 
     },
     function(arrayOfNewElems) {
-        flexVids();
+        flexFrame();
     });
 });
 ```
