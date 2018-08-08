@@ -9,7 +9,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 <script src="https://rawgit.com/robinpx/tumblr/master/scripts/flexibleFrames/flexibleFrames.js"></script>
 ```
-To use, all you need is to call the function resizeVideos(*parameter*). It passes a selector as an argument. 
+To use, all you need is to call the function resizeVideos(*parameter*) and pass the selector that wraps the video block as the argument. 
 
 Example:
 ```html
@@ -51,4 +51,16 @@ $(document).ready(function(){
         flexFrame();
     });
 });
+```
+
+Optional:
+To make the Spotify or Soundcloud iframes "skinner" or "smaller," add CSS. 
+```CSS
+.soundcloud_audio_player {
+    max-height:116px!important;
+}
+
+.spotify_audio_player {
+    max-height:80px!important;
+}
 ```
