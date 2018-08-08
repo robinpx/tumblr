@@ -54,7 +54,7 @@ $(document).ready(function(){
 
 #### Optional
 
-To make the Spotify or Soundcloud iframes "skinner" or "smaller," add CSS. 
+To make the Spotify or Soundcloud iframes "skinner" or "smaller," add CSS and adjust max-height.
 ```CSS
 .soundcloud_audio_player {
     max-height:116px!important;
