@@ -39,7 +39,7 @@ function flexibleFrames(selector) {
 function fixVidRatio(selector) {
     var w = selector.find("iframe").width();
     var h = selector.find("iframe").height();
-    var scale = $(".post").width() / w;
+    var scale = $(this).parent().width() / w;
     if (h > 540) {
            h = 540;
     }
