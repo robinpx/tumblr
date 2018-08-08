@@ -11,7 +11,7 @@
 ```
 To use, all you need is to call the function resizeVideos(*parameter*) and pass the selector that wraps the video block as the argument. 
 
-Example:
+#### Basic example
 ```html
 {block:Video}
 <div class="video">{Video-500}</div>
@@ -26,7 +26,6 @@ $(document).ready(function() {
 You can also resize the iframes in other containers like inside a caption.
 **It must be wrapped in another element.**
 
-Example:
 ```javascript
 function flexFrame() {
    $(".caption").each(function() {
@@ -39,7 +38,7 @@ function flexFrame() {
 $(document).ready(flexFrame);
 ```
 
-Implemented with infinite scroll:
+#### Implemented in infinite scroll
 ```javascript
 $(document).ready(function(){
     var $container = $('#posts');
@@ -53,7 +52,8 @@ $(document).ready(function(){
 });
 ```
 
-Optional:
+#### Optional
+
 To make the Spotify or Soundcloud iframes "skinner" or "smaller," add CSS. 
 ```CSS
 .soundcloud_audio_player {
