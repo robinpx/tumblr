@@ -1,4 +1,4 @@
-/* flexibleFrames script by @robinpx on github */
+/* flexibleFrames script by @robinpx - github */
 
 function fixFrame(selector) {
     fixVidRatio(selector); 
@@ -23,8 +23,10 @@ function fixFrame(selector) {
 }
 
 function flexibleFrames(selector) {
-    var w = [selector.parent().width(), $(".spotify_audio_player").width() + 80, $(".soundcloud_audio_player").width()];
-    $("<style>.flickr-embed-frame {max-height:" + w[0] + "px!important;width:100%!important;} .instagram-media {max-width:calc(100% - 2px)!important;min-width:calc(100% - 2px)!important;} .spotify_audio_player {height:" + w[1] + "px;} .soundcloud_audio_player {height:" + w[2] + "px;} .spotify_audio_player, .soundcloud_audio_player, .bandcamp_audio_player {width:100%!important;}</style>").appendTo("head");
+    $("iframe").on("load", function() {
+       var w = [selector.parent().width(), $(".spotify_audio_player").width() + 80, $(".soundcloud_audio_player").width()];
+       $("<style>.flickr-embed-frame {max-height:" + w[0] + "px!important;width:100%!important;} .instagram-media {max-width:calc(100% - 2px)!important;min-width:calc(100% - 2px)!important;} .spotify_audio_player {height:" + w[1] + "px!important;} .soundcloud_audio_player {height:" + w[2] + "px!important;} .spotify_audio_player, .soundcloud_audio_player, .bandcamp_audio_player {width:100%!important;}</style>").appendTo("head");
+    });
 
         selector.not(".resized").each(function() {
            var frame = $(this).find("iframe:not(.bandcamp_audio_player, .spotify_audio_player, .soundcloud_audio_player)");
@@ -39,7 +41,7 @@ function flexibleFrames(selector) {
         
      $(window).resize(function() {
          w = [selector.parent().width(), $(".spotify_audio_player").width() + 80, $(".soundcloud_audio_player").width()];
-         $("<style> .flickr-embed-frame {max-height:" + w[0] + "px!important;} .spotify_audio_player {height:" + w[1] + "px;} .soundcloud_audio_player{height:" + w[2] + "px;} </style> ").appendTo("head");      
+         $("<style> .flickr-embed-frame {max-height:" + w[0] + "px!important;} .spotify_audio_player {height:" + w[1] + "px!important;} .soundcloud_audio_player{height:" + w[2] + "px!important;} </style> ").appendTo("head");      
      });
         
 }
