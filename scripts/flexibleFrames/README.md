@@ -47,7 +47,7 @@ $(document).ready(function(){
             // options 
     },
     function(arrayOfNewElems) {
-        flexFrame();
+        flexFrame(); // or flexibleFrames($(".video"));
     });
 });
 ```
