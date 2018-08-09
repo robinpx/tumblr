@@ -38,7 +38,7 @@ function flexFrame() {
 $(document).ready(flexFrame);
 ```
 
-#### Implemented in infinite scroll
+#### Implemented with Paul Irish's infinite scroll
 ```javascript
 $(document).ready(function(){
     var $container = $('#posts');
