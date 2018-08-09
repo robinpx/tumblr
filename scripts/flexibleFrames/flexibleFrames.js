@@ -23,8 +23,10 @@ function fixFrame(selector) {
 }
 
 function flexibleFrames(selector) {
+    
+    var original = selector.parent().width();
     var w = [selector.parent().width(), $(".spotify_audio_player").width() + 80, $(".soundcloud_audio_player").width()];
-    $("<style>.flickr-embed-frame {min-width:100%!important;width:100%!important;height:" + w[0] + "px!important;} .instagram-media {max-width:calc(100% - 2px)!important;min-width:calc(100% - 2px)!important;} .spotify_audio_player {height:" + w[1] + "px;} .soundcloud_audio_player {height:" + w[2] + "px;} .spotify_audio_player, .soundcloud_audio_player, .bandcamp_audio_player {width:100%!important;}</style>").appendTo("head");
+    $("<style>.flickr-embed-frame {max-height:" + w[0] + "px!important;width:100%!important;} .instagram-media {max-width:calc(100% - 2px)!important;min-width:calc(100% - 2px)!important;} .spotify_audio_player {height:" + w[1] + "px;} .soundcloud_audio_player {height:" + w[2] + "px;} .spotify_audio_player, .soundcloud_audio_player, .bandcamp_audio_player {width:100%!important;}</style>").appendTo("head");
 
         selector.not(".resized").each(function() {
            var frame = $(this).find("iframe:not(.bandcamp_audio_player, .spotify_audio_player, .soundcloud_audio_player)");
@@ -33,12 +35,15 @@ function flexibleFrames(selector) {
            });
            $(this).addClass("resized");
         });
+        
         $(".tumblr_video_container").css({ height: "auto", width: "auto" });
         selector.find(".tumblr_video_container").parent().css({ maxHeight : "540px" }); // back-up 
+        
         $(window).resize(function() {
             w = [selector.parent().width(), $(".spotify_audio_player").width() + 80, $(".soundcloud_audio_player").width()];
-            $("<style> .flickr-embed-frame {height:" + w[0] + "px!important;} .spotify_audio_player {height:" + w[1] + "px;} .soundcloud_audio_player{height:" + w[2] + "px;} </style> ").appendTo("head");
+            $("<style> .flickr-embed-frame {max-height:" + w[0] + "px!important;} .spotify_audio_player {height:" + w[1] + "px;} .soundcloud_audio_player{height:" + w[2] + "px;} </style> ").appendTo("head");
         });
+        
 }
 
 function fixVidRatio(selector) {
