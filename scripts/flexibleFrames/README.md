@@ -63,12 +63,12 @@ function flexFrame() {
     flexibleFrames($(".video"));
     setTimeout(function() {
         isPaused = false;
-    }, 2000);
+    }, 3000);
 }
 
 function check(callback) {
     if (isPaused === true) {
-        setTimeout(function() { check(callback) }, 1000);
+        setTimeout(function() { check(callback) }, 3000);
     }
     else {
         callback();
