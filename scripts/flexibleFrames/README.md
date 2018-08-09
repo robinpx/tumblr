@@ -38,13 +38,80 @@ function flexFrame() {
 $(document).ready(flexFrame);
 ```
 
-#### Implemented with Paul Irish's infinite scroll
+#### Example implemented with Paul Irish's infinite scroll
 ```javascript
 $container.infinitescroll({
        // options 
   },
   function(arrayOfNewElems) {
       flexFrame(); // or flexibleFrames($(".video"));
+});
+```
+#### Example with masonry 
+
+It also works with masonry, but I recommend integrating a callback function to the function that calls flexibleFrames() (like flexFrame in these examples). This will allow the posts to be arranged correctly and leave out random whitespace or margins.  
+
+```javascript
+var isPaused = true;
+var $container = $("#posts");
+
+function flexFrame() {
+   $(".caption").each(function() {
+        $(this).find("iframe").wrap("<div class='iframe-flex'></div>"); // wrap iframe 
+        flexibleFrames($(".iframe-flex"));
+    });
+    flexibleFrames($(".video"));
+    setTimeout(function() {
+        isPaused = false;
+    }, 2000);
+}
+
+function check(callback) {
+    if (isPaused === true) {
+        setTimeout(function() { check(callback) }, 1000);
+    }
+    else {
+        callback();
+        isPaused = true;
+    }
+}
+ 
+$(document).ready(function() {
+    flexFrame();
+    
+    $container.masonry({ 
+        itemSelector: ".post"
+    });
+    
+    check(function() {
+       {block:IndexPage}
+       $container.imagesLoaded(function(){
+           $container.masonry();
+       });
+       $(window).resize(function(){$container.masonry();});
+      {/block:IndexPage}
+      // you can also add a fading in function here ex. $container.fadeTo(600, 1);
+    });
+});
+```
+
+#### Example with infinite scroll
+```javascript
+$container.infinitescroll({
+       // options 
+  },
+  function(arrayOfNewElems) {
+      flexFrame(); // or flexibleFrames($(".video"));
+      
+      var $newElems = $(arrayOfNewElems);
+      check(function() {
+         container.masonry();
+         $newElems.imagesLoaded(function() {
+             $container.masonry( 'appended', $newElems );
+             $newElems.animate({ opacity: 1, zIndex: 1 });
+         });
+      });
+  });
 });
 ```
 
