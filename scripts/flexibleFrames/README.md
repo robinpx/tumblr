@@ -84,12 +84,12 @@ $(document).ready(function() {
     });
     
     check(function() {
-       {block:IndexPage}
+       
        $container.imagesLoaded(function(){
            $container.masonry();
        });
        $(window).resize(function(){$container.masonry();});
-      {/block:IndexPage}
+      
       // you can also add a fading in function here ex. $container.fadeTo(600, 1);
     });
 });
