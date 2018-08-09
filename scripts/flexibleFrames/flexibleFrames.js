@@ -1,4 +1,4 @@
-/* flexibleFrames script by @robinpx - github */
+/* script by @robinpx - github */
 
 function fixFrame(selector) {
     fixVidRatio(selector); 
