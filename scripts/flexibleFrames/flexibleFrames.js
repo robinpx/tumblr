@@ -43,7 +43,7 @@ function flexibleFrames(selector) {
          w = [selector.parent().width(), $(".spotify_audio_player").width() + 80, $(".soundcloud_audio_player").width()];
          $("<style> .flickr-embed-frame {max-height:" + w[0] + "px!important;} .spotify_audio_player {height:" + w[1] + "px!important;} .soundcloud_audio_player{height:" + w[2] + "px!important;} </style> ").appendTo("head");      
      });
-        
+     return true;
 }
 
 function fixVidRatio(selector) {
