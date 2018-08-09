@@ -40,16 +40,14 @@ $(document).ready(flexFrame);
 
 #### Implemented with Paul Irish's infinite scroll
 ```javascript
-$(document).ready(function(){
-    var $container = $('#posts');
+...
     $container.infinitescroll({
-            itemSelector: '.post',
             // options 
     },
     function(arrayOfNewElems) {
         flexFrame(); // or flexibleFrames($(".video"));
     });
-});
+...
 ```
 
 #### Optional
