@@ -1,5 +1,5 @@
 ## flexibleVideos.js
-**flexibleVideos.js** is a short script in JS that makes Tumblr, Youtube, Vimeo, Instagram, Spotify, Bandcamp, and Soundcloud iframes flexible and responsive. Utilizes little HTML, little CSS (if necessary), and fully JS reliant. Dependent on JQuery 1.7.1. 
+**flexibleVideos.js** is a short script in JS that makes Tumblr, Youtube, Vimeo, Instagram, Spotify, Bandcamp, Flickr, and Soundcloud iframes flexible and responsive. Utilizes little HTML, little CSS (if necessary), and fully JS reliant. Dependent on JQuery 1.7.1. 
 
 [Demo](https://nouvae.tumblr.com/codes/flexibleFrames)
 
@@ -64,3 +64,6 @@ To make the Spotify or Soundcloud iframes "skinner" or "smaller," add CSS and ad
     max-height:80px!important;
 }
 ```
+
+### Known issues
+Flickr iframes do not fully resize correctly. 
