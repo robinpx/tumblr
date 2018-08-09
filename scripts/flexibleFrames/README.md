@@ -40,12 +40,12 @@ $(document).ready(flexFrame);
 
 #### Example implemented with Paul Irish's infinite scroll
 ```javascript
-$container.infinitescroll({
+  $container.infinitescroll({
        // options 
   },
   function(arrayOfNewElems) {
       flexFrame(); // or flexibleFrames($(".video"));
-});
+  });
 ```
 #### Example with masonry 
 
@@ -97,7 +97,7 @@ $(document).ready(function() {
 
 #### Example with infinite scroll
 ```javascript
-$container.infinitescroll({
+  $container.infinitescroll({
        // options 
   },
   function(arrayOfNewElems) {
@@ -112,7 +112,6 @@ $container.infinitescroll({
          });
       });
   });
-});
 ```
 
 #### Optional
