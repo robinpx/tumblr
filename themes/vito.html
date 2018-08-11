@@ -865,8 +865,8 @@ via <a href="{ReblogParentURL}">{ReblogParentName}</a>
 <script>
 function flexFrame() {
    $(".caption").each(function() {
-        $(this).find("iframe").wrap("<div class='iframe-flex'></div>"); // wrap iframe 
-        flexibleFrames($(".iframe-flex"));
+        $(this).find("iframe").wrap("<div class='capframe'></div>"); // wrap iframe 
+        flexibleFrames($(".capframe"));
     });
     flexibleFrames($(".video"));
 }
