@@ -18,17 +18,12 @@ function fixFrame(selector) {
     if (height > wid) { 
         heightPercent = (wid / height) * 100; 
     }   
-    selector.css({ position: "relative", width: "100%", height: "0", paddingBottom: heightPercent + "%" }); 
+    selector.css({ position: "relative", width: "100%", height: "0", paddingBottom: heightPercent + "%", overflow: "hidden" }); 
     selector.find("iframe").css({ position: "absolute", width: "100%", height: "100%", left: "0", bottom: "0" }); 
 }
 
 function flexibleFrames(selector) {
-    $("iframe").on("load", function() {
-       var w = [selector.parent().width(), $(".spotify_audio_player").width() + 80, $(".soundcloud_audio_player").width()];
-       $("<style>.flickr-embed-frame {max-height:" + w[0] + "px!important;width:100%!important;} .instagram-media {max-width:calc(100% - 2px)!important;min-width:calc(100% - 2px)!important;} .spotify_audio_player {height:" + w[1] + "px!important;} .soundcloud_audio_player {height:" + w[2] + "px!important;} .spotify_audio_player, .soundcloud_audio_player, .bandcamp_audio_player {width:100%!important;}</style>").appendTo("head");
-    });
-
-        selector.not(".resized").each(function() {
+       selector.not(".resized").each(function() {
            var frame = $(this).find("iframe:not(.bandcamp_audio_player, .spotify_audio_player, .soundcloud_audio_player)");
            frame.on("load", function() {
              fixFrame(frame.parent());
@@ -38,10 +33,11 @@ function flexibleFrames(selector) {
         
      $(".tumblr_video_container").css({ height: "auto", width: "auto" });
      selector.find(".tumblr_video_container").parent().css({ maxHeight : "540px" }); // back-up 
-        
+     var w = [selector.parent().width(), $(".spotify_audio_player").width() + 80, $(".soundcloud_audio_player").width()];
+       $("<style>.flickr-embed-frame {max-height:" + w[0] + "px!important;width:100%!important;} .instagram-media {max-width:calc(100% - 2px)!important;min-width:calc(100% - 2px)!important;} .spotify_audio_player {height:" + w[1] + "px!important;} .soundcloud_audio_player {height:" + w[2] + "px!important;} .spotify_audio_player, .soundcloud_audio_player, .bandcamp_audio_player {width:100%!important;}</style>").appendTo("head");
      $(window).resize(function() {
          w = [selector.parent().width(), $(".spotify_audio_player").width() + 80, $(".soundcloud_audio_player").width()];
-         $("<style> .flickr-embed-frame {max-height:" + w[0] + "px!important;} .spotify_audio_player {height:" + w[1] + "px!important;} .soundcloud_audio_player{height:" + w[2] + "px!important;} </style> ").appendTo("head");      
+         $("<style>.flickr-embed-frame {max-height:" + w[0] + "px!important;} .spotify_audio_player {height:" + w[1] + "px!important;} .soundcloud_audio_player{height:" + w[2] + "px!important;} </style> ").appendTo("head");      
      });
      return true;
 }
