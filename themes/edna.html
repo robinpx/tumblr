@@ -5,9 +5,10 @@ icons by pixeden
 photosets by pixel union
 new photoset resizing by bychloethemes
 unnest blockquote by magnusthemes and neothm
-video resizing and lightboxes by shythemes 
+lightboxes by shythemes 
 audio player color by roxiestheme
 minimal soundcloud player by shythemes edited by nouvae
+video resizing by nouvae
 
 edna theme by nouvae
 
@@ -68,7 +69,9 @@ edna theme by nouvae
 <!-- jquery -->
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-<script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+<script src="https://code.jquery.com/ui/1.10.4/jquery-ui.min.js"></script>
+
+<script src="https://rawgit.com/robinpx/tumblr/master/scripts/flexibleFrames/flexibleFrames.min.js"></script>
 
 <script>
 
@@ -83,9 +86,7 @@ function load(){
     shortenPost();
     {/block:IndexPage}
     {/block:ifMultiColumnPosts}
-    playerColor();
     fixPag();
-    resizeIFramesInCap();
 }
 
 function trigger() {
@@ -107,15 +108,6 @@ function trigger() {
         $("html, body").animate({ scrollTop: 0 }, 550);
         return false;
     });
-}
-
-function playerColor() {
-    var color = $("body").css("color");
-    var color2 = "transparent";
-      $('iframe.tumblr_audio_player').load(function() {
-         $('iframe.tumblr_audio_player').contents().find("head")
-            .append($("<style type='text/css'> .audio-player {background:" + color2 + "!important;} .play-pause{color:" + color + "!important;}</style>"));
-      });
 }
 
 function shortenPost() {
@@ -141,20 +133,6 @@ function fixPag() {
     }
 }
 
-function resizeIFramesInCap() { 
-    var postName = ".post"; // name of your post
-    var capName = ".caption"; // name of your caption
-     $(postName).each(function() {  
-        var vidframe = $(this).find(capName + " iframe"); 
-        var width = vidframe.attr("width");
-        var height = vidframe.attr("height");
-        var postSize = $(this).find(capName).width();
-        var newHeight = (height * postSize) / width;
-        vidframe.css({ width : postSize, height : newHeight });
-     });   
-}
-
-
 $(document).ready(load); // variable instead of method for photosets
 $(document).ready(trigger);
 </script>
@@ -167,11 +145,11 @@ $(document).ready(trigger);
     #container {margin:0px auto;!important;}
     #container {width:100%!important;}
     header, #pagination {padding-left:50px!important;}
-    #posts {margin-left:50px!important;}
+    #posts {margin-left:1.5em!important;}
     
     .post, #permalink {
         min-width:auto!important;
-        width:calc(100% - 50px)!important;
+        width:100%!important;
         margin-right:0!important;
     }
     
@@ -419,7 +397,7 @@ nav a:last-child {margin-right:0;}
     {block:ifRounded}
     border-radius:3px;
     {/block:ifRounded}
-    min-width:150px;
+    min-width:280px;
     max-width:100%;
     width:{text:Post Width};
     margin-bottom:75px;
@@ -519,13 +497,11 @@ nav a:last-child {margin-right:0;}
 }
 
 .spotify_audio_player {
-    height:80px!important;
-    width:100%!important;
+    max-height:80px!important;
 }
 
-.bandcamp_audio_player {
-    height:120px!important;
-    width:100%!important;
+.soundcloud_audio_player {
+    max-height:116px!important;
 }
 
 .player {display:inline-block;}
@@ -561,10 +537,6 @@ nav a:last-child {margin-right:0;}
 }
 
 .track {margin-right:1em;font-weight:bold;}
-
-/* video */
-
-.video {overflow:hidden;}
 
 /* ask */
 
@@ -631,9 +603,8 @@ nav a:last-child {margin-right:0;}
     display:inline-block;
 }
 
+.dot, .tags a {margin-right:1.5em;}
 .dot:last-child {display:none;}
-.tags a {margin:0em 1.5em;}
-.tags a:first-child {margin-left:0;}
 .reblogged a, .postnotes a {color:{color:Accent};}
 .reblogged span {margin-right:1.5em;}
 {block:ifNotBorders}.reblogged {margin-bottom:1.5em;}{/block:ifNotBorders}
@@ -705,8 +676,6 @@ a.more_notes_link {
 {CustomCSS}
 
 </style>
-
-<script src ="//static.tumblr.com/fwgzvyf/Oj1o08f6h/shythemes.vr.js"></script>
 
 </head>
 
@@ -903,7 +872,16 @@ a.more_notes_link {
 <script src="http://static.tumblr.com/yxfeliq/hHwojmt8m/bctphotoset.min.js"></script>
 
 <script>
+function flexFrame() {
+   $(".caption").each(function() {
+        $(this).find("iframe").wrap("<div class='iframe-flex'></div>"); // wrap iframe 
+        flexibleFrames($(".iframe-flex"));
+    });
+    flexibleFrames($(".video"));
+}
+
 $(document).ready(function(){
+    flexFrame();
    $('.photo-slideshow').pxuPhotoset({
        lightbox: true,
        rounded: false,
@@ -913,9 +891,6 @@ $(document).ready(function(){
        photoWrap: '.photo-data',
        photo: '.pxu-photo'
    });
-});
-
-$(document).ready(function() {
     $(".post").unnest({ 
      yourCaption: ".caption", 
      wrapName: ".tumblr_parent", 
@@ -933,7 +908,13 @@ function audioPlayers() {
    $('.soundcloud_audio_player').each(function(){
        $(this).attr({ src: $(this).attr('src').split('&')[0] + '&amp;liking=false&amp;sharing=false&amp;auto_play=false&amp;show_comments=false&amp;continuous_play=false&amp;buying=false&amp;show_playcount=false&amp;show_artwork=false&amp;origin=tumblr&amp;color=' + color.split('#')[1], height: 116, width: '100%' });
    });
-};
+   var color = $("body").css("color");
+    var color2 = "transparent";
+      $('iframe.tumblr_audio_player').load(function() {
+         $('iframe.tumblr_audio_player').contents().find("head")
+            .append($("<style type='text/css'> .audio-player {background:" + color2 + "!important;} .play-pause{color:" + color + "!important;}</style>"));
+      });
+}
 
 $(document).ready(audioPlayers);
 </script>
@@ -955,15 +936,13 @@ $(document).ready(function(){
             bufferPx: 800
     },
     function(arrayOfNewElems) {
-        resizeVideos();
         audioPlayers();
-        resizeIFramesInCap();
-        playerColor();
+        flexFrame();
         {block:ifMultiColumnPosts}
         shortenPost();
         {/block:ifMultiColumnPosts}
         var $newElems = $(arrayOfNewElems).css({ opacity: 0 });
-        $newElems.animate({ opacity : 1 }, 500);
+        $newElems.delay(2000).animate({ opacity : 1 }, 500);
         $newElems.find('.photo-slideshow').pxuPhotoset({
             lightbox: true,
             rounded: false,
