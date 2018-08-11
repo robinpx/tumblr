@@ -62,6 +62,7 @@ vito theme by nouvae
 
 <link href="https://fonts.googleapis.com/css?family=Tajawal|Karla|Inconsolata|Droid+Serif" rel="stylesheet">
 <link rel="stylesheet" href="http://static.tumblr.com/i5s2zks/6kOohwlux/pe-icon-7-stroke.css">
+<script src="https://rawgit.com/robinpx/tumblr/master/scripts/flexibleFrames/flexibleFrames.min.js"></script>
 
 <!-- jquery -->
 
@@ -140,7 +141,7 @@ $(document).ready(avatar);
     
     #posts {
         margin:0px auto!important;
-        max-width:calc(100% - 90px)!important;
+        max-width:calc(100% - 2em)!important;
     }
 }
 
@@ -486,13 +487,15 @@ nav a:last-child {
 }
 
 .spotify_audio_player {
-    height:80px!important;
-    width:100%!important;
+    max-height:80px!important;
 }
 
 .bandcamp_audio_player {
-    height:120px!important;
-    width:100%!important;
+    max-height:120px!important;
+}
+
+.soundcloud_audio_player {
+    max-height:116px!important;
 }
 
 .player {
@@ -640,8 +643,6 @@ a.more_notes_link {
 {CustomCSS}
 
 </style>
-
-<script src ="//static.tumblr.com/fwgzvyf/Oj1o08f6h/shythemes.vr.js"></script>
 
 </head>
 
@@ -861,7 +862,16 @@ via <a href="{ReblogParentURL}">{ReblogParentName}</a>
 <script src="http://static.tumblr.com/yxfeliq/hHwojmt8m/bctphotoset.min.js"></script>
 
 <script>
+function flexFrame() {
+   $(".caption").each(function() {
+        $(this).find("iframe").wrap("<div class='iframe-flex'></div>"); // wrap iframe 
+        flexibleFrames($(".iframe-flex"));
+    });
+    flexibleFrames($(".video"));
+}
+
 $(document).ready(function(){
+    flexFrame();
    $('.photo-slideshow').pxuPhotoset({
        lightbox: true,
        rounded: false,
@@ -871,11 +881,6 @@ $(document).ready(function(){
        photoWrap: '.photo-data',
        photo: '.pxu-photo'
    });
-});
-</script>
-
-<script>
-$(document).ready(function() {
     $(".post").unnest({ 
      yourCaption: ".caption", 
      wrapName: ".tumblr_parent", 
@@ -901,25 +906,12 @@ function audioPlayers() {
        $(this).attr({ src: $(this).attr('src').split('&')[0] + '&amp;liking=false&amp;sharing=false&amp;auto_play=false&amp;show_comments=false&amp;continuous_play=false&amp;buying=false&amp;show_playcount=false&amp;show_artwork=false&amp;origin=tumblr&amp;color=' + color.split('#')[1], height: 116, width: '100%' });
    });
    
-// resize other audio players    
-   $(".spotify_audio_player").each(function() {
-       $(this).attr("height", 80);
-       $(this).attr("width", "100%");
-   });
-   
-   $(".bandcamp_audio_player").each(function() {
-       $(this).attr("height", 120);
-       $(this).attr("width", "100%");
-   });
-   
     var color = $("body").css("color");
     var color2 = $("body").css("background-color");
       $('iframe.tumblr_audio_player').load(function() {
          $('iframe.tumblr_audio_player').contents().find("head")
             .append($("<style type='text/css'> .audio-player {background:" + color + "!important;} .play-pause{color:" + color2 + "!important;}</style>"));
       });
-
-   
 };
 
 $(document).ready(audioPlayers);
@@ -942,8 +934,8 @@ $(document).ready(function(){
             bufferPx: 800
     },
     function(arrayOfNewElems) {
-        resizeVideos();
         audioPlayers();
+        flexFrame();
         {block:ifNotShowTumblrAvatar}
         avatar();
         {/block:ifNotShowTumblrAvatar}
