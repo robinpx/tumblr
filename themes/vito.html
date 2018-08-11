@@ -72,12 +72,12 @@ vito theme by nouvae
 
 <script>
 
-var load = function(){
+function load(){
     $("#posts").delay(700).fadeTo(600, 1);
     $("#creds").delay(1000).fadeTo(600, 1);
 };
 
-var trigger = function() {
+function trigger() {
     var triggerScroll = 500;
     backTop = function() {
         var scroll = $(window).scrollTop();
@@ -98,13 +98,13 @@ var trigger = function() {
     });
 };
 
-var toggle = function() {
+function toggle() {
     $(".postnotes .title").click(function() {
         $("ol.notes").fadeToggle();
     });
 };
 
-var avatar = function() {
+function avatar() {
     {block:ifNotShowTumblrAvatar}
     $(".post").each(function() {
         var ava = $(this).find(".caption:not(.addedAv)");
