@@ -5,9 +5,10 @@ icons by pixelden
 photosets by pixel union
 new photoset resizing by bychloethemes
 unnest blockquote by magnusthemes and neothm
-video resizing and lightboxes by shythemes 
+lightboxes by shythemes 
 audio player color by roxiestheme
 minimal soundcloud player by shythemes edited by nouvae
+video resizing by nouvae
 
 agnès theme by nouvae
 
@@ -70,7 +71,8 @@ agnès theme by nouvae
 <!-- jquery -->
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-<script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+<script src="https://code.jquery.com/ui/1.10.4/jquery-ui.min.js"></script>
+<script src="https://rawgit.com/robinpx/tumblr/master/scripts/flexibleFrames/flexibleFrames.min.js"></script>
 
 <script>
 
@@ -106,20 +108,6 @@ var toggle = function() {
     
 };
 
-function resizeIFramesInCap() { 
-    var postName = ".post"; // name of your post
-    var capName = ".caption"; // name of your caption
-     $(postName).each(function() {  
-        var vidframe = $(this).find(capName + " iframe"); 
-        var width = vidframe.attr("width");
-        var height = vidframe.attr("height");
-        var postSize = $(this).width();
-        var newHeight = (height * postSize) / width;
-        var scaled = postSize / width;
-        vidframe.css({ transform : "scale(" + scaled + ")", transformOrigin : "0%" });
-    });
-};
-
 function randomize() {
     var max = "{text:Max Post Width}";
     if (max !== undefined) {
@@ -147,10 +135,20 @@ function randomize() {
     });
 };
 
+function flexFrames() {
+   $(".caption").each(function() {
+        $(this).find("iframe").wrap("<div class='capframe'></div>");
+        flexibleFrames($(".capframe"));
+    });
+    flexibleFrames($(".video"));
+}
+
 $(document).ready(trigger);
 $(document).ready(toggle);
 $(document).ready(randomize);
+$(document).ready(flexFrames);
 </script>
+
 
 <style type="text/css">
 
@@ -506,6 +504,14 @@ header nav a, header nav a:hover, #pagination a:hover
     margin-top:1em;
 }
 
+.soundcloud_audio_player {
+    max-height:116px!important;
+}
+
+.spotify_audio_player {
+    max-height:80px!important;
+}
+
 /* video */
 
 .video {overflow:hidden;}
@@ -609,8 +615,6 @@ a.more_notes_link {
 
 </style>
 
-
-<script src ="//static.tumblr.com/fwgzvyf/Oj1o08f6h/shythemes.vr.js"></script>
 
 </head>
 <body>
@@ -792,7 +796,9 @@ Filed in:
 </section>
 
 <script src="http://static.tumblr.com/wgg6svp/OoTofxa0c/unnest.min.js"></script>
+
 <link href="https://static.tumblr.com/qudkd6d/OcDnl99gb/style.css" rel="stylesheet" type="text/css"/>
+
 <script src="http://static.tumblr.com/yxfeliq/hHwojmt8m/bctphotoset.min.js"></script>
 
 <script>
@@ -806,11 +812,6 @@ $(document).ready(function(){
        photoWrap: '.photo-data',
        photo: '.pxu-photo'
    });
-});
-</script>
-
-<script>
-$(document).ready(function() {
     $(".post").unnest({ 
      yourCaption: ".caption", 
      wrapName: ".tumblr_parent", 
@@ -829,17 +830,6 @@ function audioPlayers() {
    var color = '#111111'; // color of play button (hex) 
    $('.soundcloud_audio_player').each(function(){
        $(this).attr({ src: $(this).attr('src').split('&')[0] + '&amp;liking=false&amp;sharing=false&amp;auto_play=false&amp;show_comments=false&amp;continuous_play=false&amp;buying=false&amp;show_playcount=false&amp;show_artwork=false&amp;origin=tumblr&amp;color=' + color.split('#')[1], height: 116, width: '100%' });
-   });
-   
-// resize other audio players    
-   $(".spotify_audio_player").each(function() {
-       $(this).attr("height", 80);
-       $(this).attr("width", "100%");
-   });
-   
-   $(".bandcamp_audio_player").each(function() {
-       $(this).attr("height", 120);
-       $(this).attr("width", "100%");
    });
    
    var color = $("body").css("color");
@@ -870,7 +860,6 @@ $(document).ready(function(){
             bufferPx: 800
     },
     function(arrayOfNewElems) {
-        audioPlayers();
         var $newElems = $(arrayOfNewElems);
         $newElems.find('.photo-slideshow').pxuPhotoset({
             lightbox: true,
@@ -891,8 +880,8 @@ $(document).ready(function(){
             usernameColon: false
         });
         randomize();
-        resizeVideos();
-        resizeIFramesInCap();
+        audioPlayers();
+        flexFrames();
     });
 });
 </script>
