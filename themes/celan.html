@@ -79,7 +79,8 @@ celan theme by nouvae
 <!-- jquery -->
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-<script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+<script src="https://code.jquery.com/ui/1.10.4/jquery-ui.min.js"></script>
+<script src="https://rawgit.com/robinpx/tumblr/master/scripts/flexibleFrames/flexibleFrames.min.js"></script>
 
 <script>
 
@@ -645,13 +646,15 @@ header #portrait {
 }
 
 .spotify_audio_player {
-    height:80px!important;
-    width:100%!important;
+    max-height:80px!important;
 }
 
 .bandcamp_audio_player {
-    height:120px!important;
-    width:100%!important;
+    max-height:120px!important;
+}
+
+.soundcloud_audio_player {
+    max-height:116px!important;
 }
 
 .player {display:block;}
@@ -677,10 +680,6 @@ header #portrait {
     white-space:nowrap;
     float:right;
 }
-
-/* video */
-
-.video {overflow:hidden;}
 
 /* ask */
 
@@ -1100,8 +1099,6 @@ ol.notes li.note:nth-child(even), .controls a {
 
 </style>
 
-<script src ="//static.tumblr.com/fwgzvyf/Oj1o08f6h/shythemes.vr.js"></script>
-
 </head>
 
 <body>
@@ -1410,6 +1407,29 @@ via <a href="{ReblogParentURL}">{ReblogParentName}</a>
 <script src="http://static.tumblr.com/yxfeliq/hHwojmt8m/bctphotoset.min.js"></script>
 
 <script>
+var isPaused = true;
+
+function check(callback) {
+    if (isPaused === true) {
+        setTimeout(function() { check(callback) }, 2000);
+    }
+    else {
+        callback();
+        isPaused = true;
+    }
+}
+    
+function flexFrame() {
+   $(".caption").each(function() {
+        $(this).find("iframe").wrap("<div class='iframe-flex'></div>"); // wrap iframe 
+        flexibleFrames($(".iframe-flex"));
+    });
+    flexibleFrames($(".video"));
+    setTimeout(function() {
+        isPaused = false;
+    }, 2000)
+}
+
 $(document).ready(function(){
    $('.photo-slideshow').pxuPhotoset({
        lightbox: true,
@@ -1421,16 +1441,22 @@ $(document).ready(function(){
        photo: '.pxu-photo'
    });
    var $container = $('#posts');
+   flexFrame();
    {block:IndexPage}
-   $container.masonry({ 
+   check(function() {
+      $container.masonry({ 
        itemSelector: ".post"
+       });
+       $container.imagesLoaded(function(){
+           $container.masonry();
+       });
+       $(window).resize(function(){$container.masonry();}); 
+       $container.find(".post").animate({ opacity : 1, zIndex: 1 });
    });
-   $container.imagesLoaded(function(){
-       $container.masonry();
-   });
-   $(window).resize(function(){$container.masonry();}); 
    {/block:IndexPage}
+   {block:PermalinkPage}
    $container.find(".post").animate({ opacity : 1, zIndex: 1 });
+    {/block:PermalinkPage}
     $(".post").unnest({ 
      yourCaption: ".caption", 
      wrapName: ".tumblr_parent", 
@@ -1452,17 +1478,6 @@ function audioPlayers() {
    var color = '#111111'; // color of play button (hex) 
    $('.soundcloud_audio_player').each(function(){
        $(this).attr({ src: $(this).attr('src').split('&')[0] + '&amp;liking=false&amp;sharing=false&amp;auto_play=false&amp;show_comments=false&amp;continuous_play=false&amp;buying=false&amp;show_playcount=false&amp;show_artwork=false&amp;origin=tumblr&amp;color=' + color.split('#')[1], height: 116, width: '100%' });
-   });
-   
-// resize other audio players    
-   $(".spotify_audio_player").each(function() {
-       $(this).attr("height", 80);
-       $(this).attr("width", "100%");
-   });
-   
-   $(".bandcamp_audio_player").each(function() {
-       $(this).attr("height", 120);
-       $(this).attr("width", "100%");
    });
    
     var color = $(".audio-wrap").css("color");
@@ -1491,7 +1506,7 @@ $(document).ready(function(){
             bufferPx: 800
     },
     function(arrayOfNewElems) {
-        resizeVideos();
+        flexFrame();
         audioPlayers();
         {block:IndexPage}
         {block:ifNotSingleColumnPosts}
@@ -1532,11 +1547,14 @@ $(document).ready(function(){
         });
         
         {block:IndexPage}
-        $container.masonry();
-       $newElems.imagesLoaded(function(){
-           $container.masonry( 'appended', $newElems );
-           $newElems.animate({ opacity: 1, zIndex: 1 });
-       });
+        check(function() {
+            $container.masonry();
+            $newElems.imagesLoaded(function(){
+               $container.masonry( 'appended', $newElems );
+               $newElems.animate({ opacity: 1, zIndex: 1 });
+            });
+        });
+        
        {/block:IndexPage}
     });
 });
