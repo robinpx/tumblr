@@ -14,7 +14,7 @@ To use, all you need is to call the function ```flexibleFrames(parameter)``` and
 #### Basic example
 ```html
 {block:Video}
-<div class="video">{Video-500}</div> // the video variable can be any size {Video-250}, {Video-400}, etc.
+<div class="video">{Video-500}</div> <!-- the video variable can be any size {Video-250}, {Video-400}, etc. -->
 {/block:Video}
 ```
 ```javascript
