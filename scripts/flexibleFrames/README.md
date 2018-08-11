@@ -7,7 +7,7 @@
 
 ```
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-<script src="https://rawgit.com/robinpx/tumblr/master/scripts/flexibleFrames/flexibleFrames.js"></script>
+<script src="https://rawgit.com/robinpx/tumblr/master/scripts/flexibleFrames/flexibleFrames.min.js"></script>
 ```
 To use, all you need is to call the function ```flexibleFrames(parameter)``` and pass the selector that wraps the video block as the argument. 
 
