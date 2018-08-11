@@ -78,20 +78,16 @@ function check(callback) {
  
 $(document).ready(function() {
     flexFrame();
-    
-    $container.masonry({ 
-        itemSelector: ".post"
-    });
-    
     check(function() {
-       
+      $container.masonry({ 
+       itemSelector: ".post"
+       });
        $container.imagesLoaded(function(){
            $container.masonry();
        });
-       $(window).resize(function(){$container.masonry();});
-      
-      // you can also add a fading in function here ex. $container.fadeTo(600, 1);
-    });
+       $(window).resize(function(){$container.masonry();}); 
+       $container.find(".post").animate({ opacity : 1, zIndex: 1 });
+   });
 });
 ```
 
@@ -105,7 +101,7 @@ $(document).ready(function() {
       
       var $newElems = $(arrayOfNewElems);
       check(function() {
-         container.masonry();
+         $container.masonry();
          $newElems.imagesLoaded(function() {
              $container.masonry( 'appended', $newElems );
              $newElems.animate({ opacity: 1, zIndex: 1 });
