@@ -601,6 +601,10 @@ header #portrait {
     height:450px;
 }
 
+.no-t {
+    height:auto!important;
+}
+
 .custom_read_more {
     position:absolute;
     margin-top:-4em;
@@ -1197,10 +1201,8 @@ ol.notes li.note:nth-child(even), .controls a {
 {/block:Link}
 
 {block:Quote}
-<div class="t">
 <div class="quote"><span>“</span>{Quote}<span>”</span></div>
 <div class="source">&mdash; {Source}</div>
-</div>
 {/block:Quote}
 
 {block:Chat}
@@ -1290,20 +1292,23 @@ Artist
 {/block:Audio}
 
 {block:NotReblog}
+
 {block:Caption}
 <div class="caption t">
 {Caption}
 </div>
 {/block:Caption}
+
 {block:Text}
 <div class="caption t">
 {Body}
 </div>
 {/block:Text}
+
 {/block:NotReblog}
 
 {block:Reblogs}
-<div class="caption {block:Text}text{/block:Text} t">
+<div class="caption {block:Text}text{/block:Text} {block:Quote}no-t{/block:Quote} t">
 <div class="tumblr_avatar"><img src="{PortraitURL-64}"></div>
 <a class="tumblr_blog" href="{Permalink}">{Username}</a>
 {Body}
